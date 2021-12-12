@@ -32,7 +32,7 @@ int main()
     // read
     {
       rntcsv::document doc(path, rntcsv::label_parameters(0 /* pColumnNameIdx */, -1 /* pRowNameIdx */),
-                           rntcsv::separator_parameters(',', false /* pTrim */, rntcsv::sPlatformHasCR /* pHasCR */,
+                           rntcsv::separator_parameters(',', false /* pTrim */, rntcsv::s_platform_crlf /* pHasCR */,
                                                         false /* pQuotedLinebreaks */, false /* pAutoQuote */));
       unittest::ExpectEqual(std::string, doc.cell<std::string>("\"col 1\"", 0), "\"\"");
       unittest::ExpectEqual(std::string, doc.cell<std::string>("\"col 1\"", 1), "\" \"");
@@ -45,7 +45,7 @@ int main()
     {
       unittest::WriteFile(path, csvreadref);
       rntcsv::document doc(path, rntcsv::label_parameters(0 /* pColumnNameIdx */, -1 /* pRowNameIdx */),
-                           rntcsv::separator_parameters(',', false /* pTrim */, rntcsv::sPlatformHasCR /* pHasCR */,
+                           rntcsv::separator_parameters(',', false /* pTrim */, rntcsv::s_platform_crlf /* pHasCR */,
                                                         false /* pQuotedLinebreaks */, false /* pAutoQuote */));
 
         doc.write();

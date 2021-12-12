@@ -5,7 +5,7 @@ Datastructure holding parameters controlling how the CSV data fields are separat
 ---
 
 ```c++
-separator_parameters (const char pSeparator = ',', const bool pTrim = false, const bool pHasCR = sPlatformHasCR, const bool pQuotedLinebreaks = false, const bool pAutoQuote = true)
+separator_parameters (const char pSeparator = ',', const bool pTrim = false, const bool pHasCR = s_platform_crlf, const bool pQuotedLinebreaks = false, const bool pAutoQuote = true)
 ```
 Constructor. 
 

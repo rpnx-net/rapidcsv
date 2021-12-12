@@ -388,7 +388,7 @@ passing `pAutoQuote = false` in `separator_parameters`, example:
     rntcsv::document doc("file.csv", rntcsv::label_parameters(),
                            rntcsv::separator_parameters(',' /* pSeparator */, 
                                                      false /* pTrim */, 
-                                                     rntcsv::sPlatformHasCR /* pHasCR */,
+                                                     rntcsv::s_platform_crlf /* pHasCR */,
                                                      false /* pQuotedLinebreaks */, 
                                                      false /* pAutoQuote */));
 ```

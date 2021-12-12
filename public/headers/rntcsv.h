@@ -43,9 +43,9 @@ typedef SSIZE_T ssize_t;
 namespace rntcsv
 {
 #if defined(_MSC_VER)
-  static const bool sPlatformHasCR = true;
+  static const bool s_platform_crlf = true;
 #else
-  static const bool sPlatformHasCR = false;
+  static const bool s_platform_crlf = false;
 #endif
 
   /**
@@ -325,7 +325,7 @@ namespace rntcsv
      *                                quotes during write (default true).
      */
     explicit separator_parameters(const char pSeparator = ',', const bool pTrim = false,
-                                  const bool pHasCR = sPlatformHasCR, const bool pQuotedLinebreaks = false,
+                                  const bool pHasCR = s_platform_crlf, const bool pQuotedLinebreaks = false,
                                   const bool pAutoQuote = true)
       : mSeparator(pSeparator)
       , mTrim(pTrim)
