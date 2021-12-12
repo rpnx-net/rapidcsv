@@ -23,9 +23,9 @@ int main()
   std::stringstream sstream(csv);
   rntcsv::document doc(sstream, rntcsv::label_parameters(0, 0));
 
-  std::vector<float> close = doc.GetColumn<float>("Close");
+  std::vector<float> close = doc.column<float>("Close");
   std::cout << "Read " << close.size() << " values." << std::endl;
 
-  long long volume = doc.GetCell<long long>("Volume", "2017-02-22");
+  long long volume = doc.cell<long long>("Volume", "2017-02-22");
   std::cout << "Volume " << volume << " on 2017-02-22." << std::endl;
 }

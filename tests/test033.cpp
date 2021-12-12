@@ -18,15 +18,15 @@ int main()
   {
     rntcsv::document doc("", rntcsv::label_parameters(-1, -1), rntcsv::separator_parameters(',', false, false));
 
-    doc.SetCell<int>(0, 0, 3);
-    doc.SetCell<int>(1, 0, 9);
-    doc.SetCell<int>(2, 0, 81);
+      doc.set_cell<int>(0, 0, 3);
+      doc.set_cell<int>(1, 0, 9);
+      doc.set_cell<int>(2, 0, 81);
 
-    doc.SetCell<int>(0, 1, 4);
-    doc.SetCell<int>(1, 1, 16);
-    doc.SetCell<int>(2, 1, 256);
+      doc.set_cell<int>(0, 1, 4);
+      doc.set_cell<int>(1, 1, 16);
+      doc.set_cell<int>(2, 1, 256);
 
-    doc.Save(path);
+      doc.write(path);
 
     std::string csvread = unittest::ReadFile(path);
 

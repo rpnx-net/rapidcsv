@@ -24,7 +24,7 @@ int main()
 
     rntcsv::document doccopy(doc);
 
-    doccopy.Save(pathcopy);
+      doccopy.write(pathcopy);
 
     std::string csvread = unittest::ReadFile(pathcopy);
 

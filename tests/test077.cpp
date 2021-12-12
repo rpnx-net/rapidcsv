@@ -25,19 +25,19 @@ int main()
   try
   {
     rntcsv::document doc1 = LoadDoc(path);
-    unittest::ExpectEqual(int, doc1.GetCell<int>(0, 0), 3);
-    unittest::ExpectEqual(int, doc1.GetCell<int>(1, 0), 9);
-    unittest::ExpectEqual(int, doc1.GetCell<int>(2, 0), 81);
+    unittest::ExpectEqual(int, doc1.cell<int>(0, 0), 3);
+    unittest::ExpectEqual(int, doc1.cell<int>(1, 0), 9);
+    unittest::ExpectEqual(int, doc1.cell<int>(2, 0), 81);
 
     const rntcsv::document& doc2 = LoadDoc(path);
-    unittest::ExpectEqual(std::string, doc2.GetCell<std::string>("A", "2"), "4");
-    unittest::ExpectEqual(std::string, doc2.GetCell<std::string>("B", "2"), "16");
-    unittest::ExpectEqual(std::string, doc2.GetCell<std::string>("C", "2"), "256");
+    unittest::ExpectEqual(std::string, doc2.cell<std::string>("A", "2"), "4");
+    unittest::ExpectEqual(std::string, doc2.cell<std::string>("B", "2"), "16");
+    unittest::ExpectEqual(std::string, doc2.cell<std::string>("C", "2"), "256");
 
     rntcsv::document doc3 = doc2;
-    unittest::ExpectEqual(int, doc1.GetCell<int>(0, 0), 3);
-    unittest::ExpectEqual(int, doc1.GetCell<int>(1, 0), 9);
-    unittest::ExpectEqual(int, doc1.GetCell<int>(2, 0), 81);
+    unittest::ExpectEqual(int, doc1.cell<int>(0, 0), 3);
+    unittest::ExpectEqual(int, doc1.cell<int>(1, 0), 9);
+    unittest::ExpectEqual(int, doc1.cell<int>(2, 0), 81);
   }
   catch (const std::exception& ex)
   {

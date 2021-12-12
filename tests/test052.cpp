@@ -21,17 +21,17 @@ int main()
 
     double eps1 = 1.0e7;
     double exp1 = 1.2e10;
-    double val1 = doc.GetCell<double>("A", "1");
+    double val1 = doc.cell<double>("A", "1");
     unittest::ExpectTrue(fabs(val1 - exp1) < eps1);
 
     double eps2 = 1.0e-10;
     double exp2 = 2.00e-07;
-    double val2 = doc.GetCell<double>("B", "1");
+    double val2 = doc.cell<double>("B", "1");
     unittest::ExpectTrue(fabs(val2 - exp2) < eps2);
 
     double eps3 = 1e97;
     double exp3 = 1e100;
-    double val3 = doc.GetCell<double>("C", "1");
+    double val3 = doc.cell<double>("C", "1");
     unittest::ExpectTrue(fabs(val3 - exp3) < eps3);
   }
   catch (const std::exception& ex)

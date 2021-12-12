@@ -19,19 +19,19 @@ int main()
   try
   {
     rntcsv::document doc(path, rntcsv::label_parameters(0, 0));
-    std::vector<std::string> columnNames = doc.GetColumnNames();
+    std::vector<std::string> columnNames = doc.column_names();
     unittest::ExpectEqual(size_t, columnNames.size(), 3);
     unittest::ExpectEqual(std::string, columnNames[0], "A");
     unittest::ExpectEqual(std::string, columnNames[1], "B");
     unittest::ExpectEqual(std::string, columnNames[2], "C");
 
-    std::vector<std::string> rowNames = doc.GetRowNames();
+    std::vector<std::string> rowNames = doc.row_names();
     unittest::ExpectEqual(size_t, rowNames.size(), 2);
     unittest::ExpectEqual(std::string, rowNames[0], "1");
     unittest::ExpectEqual(std::string, rowNames[1], "2");
 
     rntcsv::document doc2(path, rntcsv::label_parameters(0, -1));
-    std::vector<std::string> columnNames2 = doc2.GetColumnNames();
+    std::vector<std::string> columnNames2 = doc2.column_names();
     unittest::ExpectEqual(size_t, columnNames2.size(), 4);
     unittest::ExpectEqual(std::string, columnNames2[0], "-");
     unittest::ExpectEqual(std::string, columnNames2[1], "A");
@@ -39,7 +39,7 @@ int main()
     unittest::ExpectEqual(std::string, columnNames2[3], "C");
 
     rntcsv::document doc3(path, rntcsv::label_parameters(-1, 0));
-    std::vector<std::string> rowNames2 = doc3.GetRowNames();
+    std::vector<std::string> rowNames2 = doc3.row_names();
     unittest::ExpectEqual(size_t, rowNames2.size(), 3);
     unittest::ExpectEqual(std::string, rowNames2[0], "-");
     unittest::ExpectEqual(std::string, rowNames2[1], "1");

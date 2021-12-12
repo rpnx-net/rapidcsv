@@ -20,10 +20,10 @@ int main()
   {
     rntcsv::document doc(path);
 
-    unittest::ExpectEqual(ssize_t, doc.GetRowIdx("-"), -1);
-    unittest::ExpectEqual(ssize_t, doc.GetRowIdx("1"), -1);
-    unittest::ExpectEqual(ssize_t, doc.GetRowIdx("2"), -1);
-    unittest::ExpectEqual(ssize_t, doc.GetRowIdx("3"), -1);
+    unittest::ExpectEqual(ssize_t, doc.row_index("-"), -1);
+    unittest::ExpectEqual(ssize_t, doc.row_index("1"), -1);
+    unittest::ExpectEqual(ssize_t, doc.row_index("2"), -1);
+    unittest::ExpectEqual(ssize_t, doc.row_index("3"), -1);
   }
   catch (const std::exception& ex)
   {

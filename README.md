@@ -36,7 +36,7 @@ vector of floats.
     {
       rntcsv::document doc("examples/colhdr.csv");
 
-      std::vector<float> col = doc.GetColumn<float>("Close");
+      std::vector<float> col = doc.column<float>("Close");
       std::cout << "Read " << col.size() << " values." << std::endl;
     }
 ```
@@ -98,10 +98,10 @@ as row headers one needs to use label_parameters and set pRowNameIdx to 0.
     {
       rntcsv::document doc("examples/colrowhdr.csv", rntcsv::label_parameters(0, 0));
 
-      std::vector<float> close = doc.GetRow<float>("2017-02-22");
+      std::vector<float> close = doc.row<float>("2017-02-22");
       std::cout << "Read " << close.size() << " values." << std::endl;
 
-      long long volume = doc.GetCell<long long>("Volume", "2017-02-22");
+      long long volume = doc.cell<long long>("Volume", "2017-02-22");
       std::cout << "Volume " << volume << " on 2017-02-22." << std::endl;
     }
 ```
@@ -126,7 +126,7 @@ as row headers one needs to use label_parameters and set pRowNameIdx to 0.
     {
       rntcsv::document doc("examples/rowhdr.csv", rntcsv::label_parameters(-1, 0));
 
-      std::vector<std::string> row = doc.GetRow<std::string>("2017-02-22");
+      std::vector<std::string> row = doc.row<std::string>("2017-02-22");
       std::cout << "Read " << row.size() << " values." << std::endl;
     }
 ```
@@ -151,10 +151,10 @@ as row headers one needs to use label_parameters and set pRowNameIdx to 0.
     {
       rntcsv::document doc("examples/nohdr.csv", rntcsv::label_parameters(-1, -1));
 
-      std::vector<float> close = doc.GetColumn<float>(5);
+      std::vector<float> close = doc.column<float>(5);
       std::cout << "Read " << close.size() << " values." << std::endl;
 
-      long long volume = doc.GetCell<long long>(4, 2);
+      long long volume = doc.cell<long long>(4, 2);
       std::cout << "Volume " << volume << " on 2017-02-22." << std::endl;
     }
 ```
@@ -186,10 +186,10 @@ semi-colon as separator.
       rntcsv::document doc("examples/semi.csv", rntcsv::label_parameters(0, 0),
                              rntcsv::separator_parameters(';'));
 
-      std::vector<float> close = doc.GetColumn<float>("Close");
+      std::vector<float> close = doc.column<float>("Close");
       std::cout << "Read " << close.size() << " values." << std::endl;
 
-      long long volume = doc.GetCell<long long>("Volume", "2017-02-22");
+      long long volume = doc.cell<long long>("Volume", "2017-02-22");
       std::cout << "Volume " << volume << " on 2017-02-22." << std::endl;
     }
 ```
@@ -222,17 +222,17 @@ as a character. The following example illustrates the supported data types.
     {
       rntcsv::document doc("examples/colrowhdr.csv", rntcsv::label_parameters(0, 0));
 
-      std::cout << doc.GetCell<std::string>("Volume", "2017-02-22") << std::endl;
-      std::cout << doc.GetCell<int>("Volume", "2017-02-22") << std::endl;
-      std::cout << doc.GetCell<long>("Volume", "2017-02-22") << std::endl;
-      std::cout << doc.GetCell<long long>("Volume", "2017-02-22") << std::endl;
-      std::cout << doc.GetCell<unsigned>("Volume", "2017-02-22") << std::endl;
-      std::cout << doc.GetCell<unsigned long>("Volume", "2017-02-22") << std::endl;
-      std::cout << doc.GetCell<unsigned long long>("Volume", "2017-02-22") << std::endl;
-      std::cout << doc.GetCell<float>("Volume", "2017-02-22") << std::endl;
-      std::cout << doc.GetCell<double>("Volume", "2017-02-22") << std::endl;
-      std::cout << doc.GetCell<long double>("Volume", "2017-02-22") << std::endl;
-      std::cout << doc.GetCell<char>("Volume", "2017-02-22") << std::endl;
+      std::cout << doc.cell<std::string>("Volume", "2017-02-22") << std::endl;
+      std::cout << doc.cell<int>("Volume", "2017-02-22") << std::endl;
+      std::cout << doc.cell<long>("Volume", "2017-02-22") << std::endl;
+      std::cout << doc.cell<long long>("Volume", "2017-02-22") << std::endl;
+      std::cout << doc.cell<unsigned>("Volume", "2017-02-22") << std::endl;
+      std::cout << doc.cell<unsigned long>("Volume", "2017-02-22") << std::endl;
+      std::cout << doc.cell<unsigned long long>("Volume", "2017-02-22") << std::endl;
+      std::cout << doc.cell<float>("Volume", "2017-02-22") << std::endl;
+      std::cout << doc.cell<double>("Volume", "2017-02-22") << std::endl;
+      std::cout << doc.cell<long double>("Volume", "2017-02-22") << std::endl;
+      std::cout << doc.cell<char>("Volume", "2017-02-22") << std::endl;
     }
 
 ```
@@ -264,7 +264,7 @@ for a test overriding to_value() and to_string().
     {
       rntcsv::document doc("examples/colrowhdr.csv", rntcsv::label_parameters(0, 0));
 
-      std::vector<int> close = doc.GetColumn<int>("Close");
+      std::vector<int> close = doc.column<int>("Close");
       std::cout << "close[0]  = " << close[0] << std::endl;
       std::cout << "close[1]  = " << close[1] << std::endl;
     }
@@ -302,13 +302,13 @@ override usage can be found in the test
     {
       rntcsv::document doc("examples/colrowhdr.csv", rntcsv::label_parameters(0, 0));
 
-      std::cout << "regular         = " << doc.GetCell<int>("Close", "2017-02-21") << "\n";
-      std::cout << "fixpointfunc    = " << doc.GetCell<int>("Close", "2017-02-21", ConvFixPoint) << "\n";
+      std::cout << "regular         = " << doc.cell<int>("Close", "2017-02-21") << "\n";
+      std::cout << "fixpointfunc    = " << doc.cell<int>("Close", "2017-02-21", ConvFixPoint) << "\n";
 
       auto convFixLambda = [](const std::string& pStr, int& pVal) { pVal = static_cast<int>(roundf(100.0f * stof(pStr))); };
-      std::cout << "fixpointlambda  = " << doc.GetCell<int>("Close", "2017-02-21", convFixLambda) << "\n";
+      std::cout << "fixpointlambda  = " << doc.cell<int>("Close", "2017-02-21", convFixLambda) << "\n";
 
-      std::cout << "mystruct        = " << doc.GetCell<MyStruct>("Close", "2017-02-21", ConvMyStruct).val << "\n";
+      std::cout << "mystruct        = " << doc.cell<MyStruct>("Close", "2017-02-21", ConvMyStruct).val << "\n";
     }
 ```
 
@@ -338,10 +338,10 @@ simple example reading CSV data from a string:
       std::stringstream sstream(csv);
       rntcsv::document doc(sstream, rntcsv::label_parameters(0, 0));
 
-      std::vector<float> close = doc.GetColumn<float>("Close");
+      std::vector<float> close = doc.column<float>("Close");
       std::cout << "Read " << close.size() << " values." << std::endl;
 
-      long long volume = doc.GetCell<long long>("Volume", "2017-02-22");
+      long long volume = doc.cell<long long>("Volume", "2017-02-22");
       std::cout << "Volume " << volume << " on 2017-02-22." << std::endl;
     }
 ```
@@ -367,13 +367,13 @@ integer types. Example:
 
 Check if a Column Exists
 ------------------------
-Rapidcsv provides the methods GetColumnNames() and GetRowNames() to retrieve
+Rapidcsv provides the methods column_names() and row_names() to retrieve
 the column and row names. To check whether a particular column name exists
 one can for example do:
 
 ```cpp
     rntcsv::document doc("file.csv");
-    std::vector<std::string> columnNames = doc.GetColumnNames();
+    std::vector<std::string> columnNames = doc.column_names();
     bool columnExists =
       (std::find(columnNames.begin(), columnNames.end(), "A") != columnNames.end());
 ```

@@ -23,12 +23,12 @@ int main()
     rntcsv::document doc(path, rntcsv::label_parameters(), rntcsv::separator_parameters(),
                          rntcsv::converter_parameters(),
                          rntcsv::line_reader_parameters(false, '#', true));
-    unittest::ExpectEqual(size_t, doc.GetColumn<int>("A").size(), 2);
-    unittest::ExpectEqual(size_t, doc.GetColumn<int>("B").size(), 2);
-    unittest::ExpectEqual(size_t, doc.GetColumn<int>("C").size(), 2);
+    unittest::ExpectEqual(size_t, doc.column<int>("A").size(), 2);
+    unittest::ExpectEqual(size_t, doc.column<int>("B").size(), 2);
+    unittest::ExpectEqual(size_t, doc.column<int>("C").size(), 2);
 
-    unittest::ExpectEqual(int, doc.GetCell<int>(0, 0), 1);
-    unittest::ExpectEqual(int, doc.GetCell<int>(1, 1), 4);
+    unittest::ExpectEqual(int, doc.cell<int>(0, 0), 1);
+    unittest::ExpectEqual(int, doc.cell<int>(1, 1), 4);
   }
   catch (const std::exception& ex)
   {

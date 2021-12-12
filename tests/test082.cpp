@@ -21,21 +21,21 @@ int main()
   {
     rntcsv::document doc("", rntcsv::label_parameters(0, 0), rntcsv::separator_parameters(',', false, false));
 
-    doc.InsertRow(0, std::vector<int>({ 3, 9, 81, 6561 }), "1");
-    doc.InsertRow(0, std::vector<int>({ 2, 4, 16, 256 }), "0");
+      doc.insert_row(0, std::vector<int>({3, 9, 81, 6561}), "1");
+      doc.insert_row(0, std::vector<int>({2, 4, 16, 256}), "0");
 
-    doc.InsertRow<int>(2);
-    doc.SetRow(2, std::vector<int>({ 4, 16, 256, 65536 }));
-    doc.SetRowName(2, "2");
+      doc.insert_row<int>(2);
+      doc.assign_row(2, std::vector<int>({4, 16, 256, 65536}));
+      doc.row_name(2, "2");
 
-    doc.InsertRow(3, std::vector<int>({ 5, 25, 625, 390625 }), "3");
+      doc.insert_row(3, std::vector<int>({5, 25, 625, 390625}), "3");
 
-    doc.SetColumnName(0, "A");
-    doc.SetColumnName(1, "B");
-    doc.SetColumnName(2, "C");
-    doc.SetColumnName(3, "D");
+      doc.set_column_name(0, "A");
+      doc.set_column_name(1, "B");
+      doc.set_column_name(2, "C");
+      doc.set_column_name(3, "D");
 
-    doc.Save(path);
+      doc.write(path);
 
     std::string csvread = unittest::ReadFile(path);
 

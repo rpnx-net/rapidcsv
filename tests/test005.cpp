@@ -23,13 +23,13 @@ int main()
     std::vector<int> ints;
     std::vector<std::string> strs;
 
-    ints = doc.GetRow<int>(0);
+    ints = doc.row<int>(0);
     unittest::ExpectEqual(size_t, ints.size(), 3);
     unittest::ExpectEqual(int, ints.at(0), 3);
     unittest::ExpectEqual(int, ints.at(1), 9);
     unittest::ExpectEqual(int, ints.at(2), 81);
 
-    strs = doc.GetRow<std::string>("2");
+    strs = doc.row<std::string>("2");
     unittest::ExpectEqual(size_t, strs.size(), 3);
     unittest::ExpectEqual(std::string, strs.at(0), "4");
     unittest::ExpectEqual(std::string, strs.at(1), "16");

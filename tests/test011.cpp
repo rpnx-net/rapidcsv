@@ -19,22 +19,22 @@ int main()
   {
     rntcsv::document doc("", rntcsv::label_parameters(0, 0), rntcsv::separator_parameters(',', false, false));
 
-    doc.SetCell<int>(0, 0, 3);
-    doc.SetCell<int>(1, 0, 9);
-    doc.SetCell<int>(2, 0, 81);
+      doc.set_cell<int>(0, 0, 3);
+      doc.set_cell<int>(1, 0, 9);
+      doc.set_cell<int>(2, 0, 81);
 
-    doc.SetCell<int>(0, 1, 4);
-    doc.SetCell<int>(1, 1, 16);
-    doc.SetCell<int>(2, 1, 256);
+      doc.set_cell<int>(0, 1, 4);
+      doc.set_cell<int>(1, 1, 16);
+      doc.set_cell<int>(2, 1, 256);
 
-    doc.SetColumnName(0, "A");
-    doc.SetColumnName(1, "B");
-    doc.SetColumnName(2, "C");
+      doc.set_column_name(0, "A");
+      doc.set_column_name(1, "B");
+      doc.set_column_name(2, "C");
 
-    doc.SetRowName(0, "1");
-    doc.SetRowName(1, "2");
+      doc.row_name(0, "1");
+      doc.row_name(1, "2");
 
-    doc.Save(path);
+      doc.write(path);
 
     std::string csvread = unittest::ReadFile(path);
 

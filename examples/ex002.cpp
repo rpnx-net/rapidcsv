@@ -13,9 +13,9 @@ int main()
 {
   rntcsv::document doc("examples/colrowhdr.csv", rntcsv::label_parameters(0, 0));
 
-  std::vector<float> close = doc.GetRow<float>("2017-02-22");
+  std::vector<float> close = doc.row<float>("2017-02-22");
   std::cout << "Read " << close.size() << " values." << std::endl;
 
-  long long volume = doc.GetCell<long long>("Volume", "2017-02-22");
+  long long volume = doc.cell<long long>("Volume", "2017-02-22");
   std::cout << "Volume " << volume << " on 2017-02-22." << std::endl;
 }

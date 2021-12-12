@@ -20,13 +20,13 @@ int main()
   {
     rntcsv::document doc(path, rntcsv::label_parameters(0, 0));
 
-    ExpectException(doc.GetCell<int>(0, 0), std::invalid_argument);
-    ExpectException(doc.GetCell<int>(1, 0), std::invalid_argument);
-    ExpectException(doc.GetCell<int>(2, 0), std::invalid_argument);
+    ExpectException(doc.cell<int>(0, 0), std::invalid_argument);
+    ExpectException(doc.cell<int>(1, 0), std::invalid_argument);
+    ExpectException(doc.cell<int>(2, 0), std::invalid_argument);
 
-    ExpectException(doc.GetCell<double>(0, 1), std::invalid_argument);
-    ExpectException(doc.GetCell<double>(1, 1), std::invalid_argument);
-    ExpectException(doc.GetCell<double>(2, 1), std::invalid_argument);
+    ExpectException(doc.cell<double>(0, 1), std::invalid_argument);
+    ExpectException(doc.cell<double>(1, 1), std::invalid_argument);
+    ExpectException(doc.cell<double>(2, 1), std::invalid_argument);
   }
   catch (const std::exception& ex)
   {

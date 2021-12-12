@@ -20,17 +20,17 @@ int main()
   {
     rntcsv::document doc(path, rntcsv::label_parameters(1));
 
-    unittest::ExpectEqual(ssize_t, doc.GetColumnIdx("-"), -1);
-    unittest::ExpectEqual(ssize_t, doc.GetColumnIdx("A"), -1);
-    unittest::ExpectEqual(ssize_t, doc.GetColumnIdx("B"), -1);
-    unittest::ExpectEqual(ssize_t, doc.GetColumnIdx("C"), -1);
-    unittest::ExpectEqual(ssize_t, doc.GetColumnIdx("D"), -1);
+    unittest::ExpectEqual(ssize_t, doc.column_index("-"), -1);
+    unittest::ExpectEqual(ssize_t, doc.column_index("A"), -1);
+    unittest::ExpectEqual(ssize_t, doc.column_index("B"), -1);
+    unittest::ExpectEqual(ssize_t, doc.column_index("C"), -1);
+    unittest::ExpectEqual(ssize_t, doc.column_index("D"), -1);
 
-    unittest::ExpectEqual(ssize_t, doc.GetColumnIdx("1"), 0);
-    unittest::ExpectEqual(ssize_t, doc.GetColumnIdx("3"), 1);
-    unittest::ExpectEqual(ssize_t, doc.GetColumnIdx("9"), 2);
-    unittest::ExpectEqual(ssize_t, doc.GetColumnIdx("81"), 3);
-    unittest::ExpectEqual(ssize_t, doc.GetColumnIdx("91"), -1);
+    unittest::ExpectEqual(ssize_t, doc.column_index("1"), 0);
+    unittest::ExpectEqual(ssize_t, doc.column_index("3"), 1);
+    unittest::ExpectEqual(ssize_t, doc.column_index("9"), 2);
+    unittest::ExpectEqual(ssize_t, doc.column_index("81"), 3);
+    unittest::ExpectEqual(ssize_t, doc.column_index("91"), -1);
   }
   catch (const std::exception& ex)
   {

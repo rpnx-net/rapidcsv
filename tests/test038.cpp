@@ -20,13 +20,13 @@ int main()
   {
     rntcsv::document doc(path, rntcsv::label_parameters(0, 0));
 
-    unittest::ExpectEqual(std::string, doc.GetCell<std::string>(0, 0), "3");
-    unittest::ExpectEqual(std::string, doc.GetCell<std::string>(1, 0), "9");
-    unittest::ExpectEqual(std::string, doc.GetCell<std::string>(2, 0), "81");
+    unittest::ExpectEqual(std::string, doc.cell<std::string>(0, 0), "3");
+    unittest::ExpectEqual(std::string, doc.cell<std::string>(1, 0), "9");
+    unittest::ExpectEqual(std::string, doc.cell<std::string>(2, 0), "81");
 
-    unittest::ExpectEqual(std::string, doc.GetCell<std::string>(0, 1), "4");
-    unittest::ExpectEqual(std::string, doc.GetCell<std::string>(1, 1), "16");
-    unittest::ExpectEqual(std::string, doc.GetCell<std::string>(2, 1), "256");
+    unittest::ExpectEqual(std::string, doc.cell<std::string>(0, 1), "4");
+    unittest::ExpectEqual(std::string, doc.cell<std::string>(1, 1), "16");
+    unittest::ExpectEqual(std::string, doc.cell<std::string>(2, 1), "256");
   }
   catch (const std::exception& ex)
   {

@@ -21,20 +21,20 @@ int main()
   {
     rntcsv::document doc("", rntcsv::label_parameters(), rntcsv::separator_parameters(',', false, false));
 
-    doc.SetColumn<int>(0, std::vector<int>({ 2, 3 }));
-    doc.SetColumn<int>(1, std::vector<int>({ 4, 9, 16, 25 }));
-    doc.SetColumn<int>(2, std::vector<int>({ 16, 81, 256, 625 }));
-    doc.SetColumn<int>(3, std::vector<int>({ 256, 6561, 65536, 390625 }));
+      doc.assign_column<int>(0, std::vector<int>({2, 3}));
+      doc.assign_column<int>(1, std::vector<int>({4, 9, 16, 25}));
+      doc.assign_column<int>(2, std::vector<int>({16, 81, 256, 625}));
+      doc.assign_column<int>(3, std::vector<int>({256, 6561, 65536, 390625}));
 
-    doc.SetCell<int>(0, 2, 4);
-    doc.SetCell<int>(0, 3, 5);
+      doc.set_cell<int>(0, 2, 4);
+      doc.set_cell<int>(0, 3, 5);
 
-    doc.SetColumnName(0, "A");
-    doc.SetColumnName(1, "B");
-    doc.SetColumnName(2, "C");
-    doc.SetColumnName(3, "D");
+      doc.set_column_name(0, "A");
+      doc.set_column_name(1, "B");
+      doc.set_column_name(2, "C");
+      doc.set_column_name(3, "D");
 
-    doc.Save(path);
+      doc.write(path);
 
     std::string csvread = unittest::ReadFile(path);
 

@@ -26,23 +26,23 @@ int main()
   {
     rntcsv::document doc(path);
 
-    doc.SetCell<int>(0, 0, 3);
-    doc.SetCell<int>(1, 0, 9);
-    doc.SetCell<int>(2, 0, 81);
+      doc.set_cell<int>(0, 0, 3);
+      doc.set_cell<int>(1, 0, 9);
+      doc.set_cell<int>(2, 0, 81);
 
-    doc.SetCell<std::string>(0, 1, "4");
-    doc.SetCell<std::string>(1, 1, "16");
-    doc.SetCell<std::string>(2, 1, "256");
+      doc.set_cell<std::string>(0, 1, "4");
+      doc.set_cell<std::string>(1, 1, "16");
+      doc.set_cell<std::string>(2, 1, "256");
 
-    unittest::ExpectEqual(int, doc.GetCell<int>(0, 0), 3);
-    unittest::ExpectEqual(int, doc.GetCell<int>(1, 0), 9);
-    unittest::ExpectEqual(int, doc.GetCell<int>(2, 0), 81);
+    unittest::ExpectEqual(int, doc.cell<int>(0, 0), 3);
+    unittest::ExpectEqual(int, doc.cell<int>(1, 0), 9);
+    unittest::ExpectEqual(int, doc.cell<int>(2, 0), 81);
 
-    unittest::ExpectEqual(std::string, doc.GetCell<std::string>(0, 1), "4");
-    unittest::ExpectEqual(std::string, doc.GetCell<std::string>(1, 1), "16");
-    unittest::ExpectEqual(std::string, doc.GetCell<std::string>(2, 1), "256");
+    unittest::ExpectEqual(std::string, doc.cell<std::string>(0, 1), "4");
+    unittest::ExpectEqual(std::string, doc.cell<std::string>(1, 1), "16");
+    unittest::ExpectEqual(std::string, doc.cell<std::string>(2, 1), "256");
 
-    doc.Save();
+      doc.write();
 
     std::string csvread = unittest::ReadFile(path);
 

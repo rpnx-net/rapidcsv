@@ -20,15 +20,15 @@ int main()
   {
     rntcsv::document doc(path, rntcsv::label_parameters(0, 0));
 
-    unittest::ExpectEqual(std::string, doc.GetColumnName(0), "A");
-    unittest::ExpectEqual(std::string, doc.GetColumnName(1), "B");
-    unittest::ExpectEqual(std::string, doc.GetColumnName(2), "C");
+    unittest::ExpectEqual(std::string, doc.column_name(0), "A");
+    unittest::ExpectEqual(std::string, doc.column_name(1), "B");
+    unittest::ExpectEqual(std::string, doc.column_name(2), "C");
 
-    ExpectExceptionMsg(doc.GetColumn<int>(2), std::out_of_range,
+    ExpectExceptionMsg(doc.column<int>(2), std::out_of_range,
                        "requested column index 2 >= 2 (number of columns on row index 1)");
-    ExpectExceptionMsg(doc.GetColumn<int>("C"), std::out_of_range,
+    ExpectExceptionMsg(doc.column<int>("C"), std::out_of_range,
                        "requested column index 2 >= 2 (number of columns on row index 1)");
-    ExpectExceptionMsg(doc.GetColumn<int>(3), std::out_of_range,
+    ExpectExceptionMsg(doc.column<int>(3), std::out_of_range,
                        "requested column index 3 >= 3 (number of columns on row index 0)");
   }
   catch (const std::exception& ex)

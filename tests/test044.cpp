@@ -26,11 +26,11 @@ int main()
   {
     rntcsv::document doc(path, rntcsv::label_parameters(0, 0));
 
-    doc.SetColumn<char>(0, std::vector<char>({ 'a', 'x' }));
-    doc.SetColumn<char>(1, std::vector<char>({ 'b', 'y' }));
-    doc.SetColumn<char>("C", std::vector<char>({ 'c', 'z' }));
+      doc.assign_column<char>(0, std::vector<char>({'a', 'x'}));
+      doc.assign_column<char>(1, std::vector<char>({'b', 'y'}));
+      doc.assign_column<char>("C", std::vector<char>({'c', 'z'}));
 
-    doc.Save();
+      doc.write();
 
     std::string csvread = unittest::ReadFile(path);
 

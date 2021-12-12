@@ -19,13 +19,13 @@ int main()
   try
   {
     rntcsv::document doc(path, rntcsv::label_parameters(0, 0), rntcsv::separator_parameters(',', true));
-    unittest::ExpectEqual(std::string, doc.GetCell<std::string>("A", "1"), "3");
-    unittest::ExpectEqual(std::string, doc.GetCell<std::string>("B", "1"), "9");
-    unittest::ExpectEqual(std::string, doc.GetCell<std::string>("C", "1"), "81");
+    unittest::ExpectEqual(std::string, doc.cell<std::string>("A", "1"), "3");
+    unittest::ExpectEqual(std::string, doc.cell<std::string>("B", "1"), "9");
+    unittest::ExpectEqual(std::string, doc.cell<std::string>("C", "1"), "81");
 
-    unittest::ExpectEqual(std::string, doc.GetCell<std::string>("A", "2"), "4");
-    unittest::ExpectEqual(std::string, doc.GetCell<std::string>("B", "2"), "16");
-    unittest::ExpectEqual(std::string, doc.GetCell<std::string>("C", "2"), "256");
+    unittest::ExpectEqual(std::string, doc.cell<std::string>("A", "2"), "4");
+    unittest::ExpectEqual(std::string, doc.cell<std::string>("B", "2"), "16");
+    unittest::ExpectEqual(std::string, doc.cell<std::string>("C", "2"), "256");
   }
   catch (const std::exception& ex)
   {

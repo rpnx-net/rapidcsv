@@ -26,25 +26,25 @@ int main()
   {
     rntcsv::document doc(path);
 
-    doc.SetRow<int>(0, std::vector<int>({ 3, 9, 81 }));
-    doc.SetRow<std::string>(1, std::vector<std::string>({ "4", "16", "256" }));
+      doc.assign_row<int>(0, std::vector<int>({3, 9, 81}));
+      doc.assign_row<std::string>(1, std::vector<std::string>({"4", "16", "256"}));
 
     std::vector<int> ints;
     std::vector<std::string> strs;
 
-    ints = doc.GetRow<int>(0);
+    ints = doc.row<int>(0);
     unittest::ExpectEqual(size_t, ints.size(), 3);
     unittest::ExpectEqual(int, ints.at(0), 3);
     unittest::ExpectEqual(int, ints.at(1), 9);
     unittest::ExpectEqual(int, ints.at(2), 81);
 
-    strs = doc.GetRow<std::string>(1);
+    strs = doc.row<std::string>(1);
     unittest::ExpectEqual(size_t, strs.size(), 3);
     unittest::ExpectEqual(std::string, strs.at(0), "4");
     unittest::ExpectEqual(std::string, strs.at(1), "16");
     unittest::ExpectEqual(std::string, strs.at(2), "256");
 
-    doc.Save();
+      doc.write();
 
     std::string csvread = unittest::ReadFile(path);
 

@@ -13,6 +13,6 @@ int main()
 {
   rntcsv::document doc("examples/colhdr.csv");
 
-  std::vector<float> col = doc.GetColumn<float>("Close");
+  std::vector<float> col = doc.column<float>("Close");
   std::cout << "Read " << col.size() << " values." << std::endl;
 }

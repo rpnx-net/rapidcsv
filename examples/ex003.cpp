@@ -13,6 +13,6 @@ int main()
 {
   rntcsv::document doc("examples/rowhdr.csv", rntcsv::label_parameters(-1, 0));
 
-  std::vector<std::string> row = doc.GetRow<std::string>("2017-02-22");
+  std::vector<std::string> row = doc.row<std::string>("2017-02-22");
   std::cout << "Read " << row.size() << " values." << std::endl;
 }

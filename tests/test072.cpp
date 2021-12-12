@@ -20,11 +20,11 @@ int main()
   {
     rntcsv::document doc(path);
 
-    unittest::ExpectEqual(ssize_t, doc.GetColumnIdx("-"), 0);
-    unittest::ExpectEqual(ssize_t, doc.GetColumnIdx("A"), 1);
-    unittest::ExpectEqual(ssize_t, doc.GetColumnIdx("B"), 2);
-    unittest::ExpectEqual(ssize_t, doc.GetColumnIdx("C"), 3);
-    unittest::ExpectEqual(ssize_t, doc.GetColumnIdx("D"), -1);
+    unittest::ExpectEqual(ssize_t, doc.column_index("-"), 0);
+    unittest::ExpectEqual(ssize_t, doc.column_index("A"), 1);
+    unittest::ExpectEqual(ssize_t, doc.column_index("B"), 2);
+    unittest::ExpectEqual(ssize_t, doc.column_index("C"), 3);
+    unittest::ExpectEqual(ssize_t, doc.column_index("D"), -1);
   }
   catch (const std::exception& ex)
   {

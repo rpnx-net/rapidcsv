@@ -20,8 +20,8 @@ int main()
   try
   {
     rntcsv::document doc(path, rntcsv::label_parameters(0, 0));
-    doc.SetCell<std::string>("C", "2", "256,8");
-    doc.Save(outpath);
+      doc.set_cell<std::string>("C", "2", "256,8");
+      doc.write(outpath);
     std::string csvread = unittest::ReadFile(outpath);
     unittest::ExpectEqual(std::string, csv, csvread);
   }

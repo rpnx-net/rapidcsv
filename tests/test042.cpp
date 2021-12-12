@@ -1,4 +1,4 @@
-// test042.cpp - test GetColumnCount() and GetRowCount()
+// test042.cpp - test column_count() and row_count()
 
 #include <rntcsv.h>
 #include "unittest.h"
@@ -19,12 +19,12 @@ int main()
   try
   {
     rntcsv::document doc1(path, rntcsv::label_parameters(0, 0));
-    unittest::ExpectEqual(size_t, doc1.GetColumnCount(), 3);
-    unittest::ExpectEqual(size_t, doc1.GetRowCount(), 2);
+    unittest::ExpectEqual(size_t, doc1.column_count(), 3);
+    unittest::ExpectEqual(size_t, doc1.row_count(), 2);
 
     rntcsv::document doc2(path, rntcsv::label_parameters(-1, -1));
-    unittest::ExpectEqual(size_t, doc2.GetColumnCount(), 4);
-    unittest::ExpectEqual(size_t, doc2.GetRowCount(), 3);
+    unittest::ExpectEqual(size_t, doc2.column_count(), 4);
+    unittest::ExpectEqual(size_t, doc2.row_count(), 3);
   }
   catch (const std::exception& ex)
   {

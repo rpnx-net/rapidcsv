@@ -24,29 +24,29 @@ int main()
   {
     rntcsv::document doc(path, rntcsv::label_parameters(-1, -1));
 
-    doc.SetColumn<int>(0, std::vector<int>({ 3, 4 }));
-    doc.SetColumn<int>(1, std::vector<int>({ 9, 16 }));
-    doc.SetColumn<std::string>(2, std::vector<std::string>({ "81", "256" }));
+      doc.assign_column<int>(0, std::vector<int>({3, 4}));
+      doc.assign_column<int>(1, std::vector<int>({9, 16}));
+      doc.assign_column<std::string>(2, std::vector<std::string>({"81", "256"}));
 
     std::vector<int> ints;
     std::vector<std::string> strs;
 
-    ints = doc.GetColumn<int>(0);
+    ints = doc.column<int>(0);
     unittest::ExpectEqual(size_t, ints.size(), 2);
     unittest::ExpectEqual(int, ints.at(0), 3);
     unittest::ExpectEqual(int, ints.at(1), 4);
 
-    strs = doc.GetColumn<std::string>(1);
+    strs = doc.column<std::string>(1);
     unittest::ExpectEqual(size_t, strs.size(), 2);
     unittest::ExpectEqual(std::string, strs.at(0), "9");
     unittest::ExpectEqual(std::string, strs.at(1), "16");
 
-    ints = doc.GetColumn<int>(2);
+    ints = doc.column<int>(2);
     unittest::ExpectEqual(size_t, ints.size(), 2);
     unittest::ExpectEqual(int, ints.at(0), 81);
     unittest::ExpectEqual(int, ints.at(1), 256);
 
-    doc.Save();
+      doc.write();
 
     std::string csvread = unittest::ReadFile(path);
 

@@ -39,18 +39,18 @@ int main()
   {
     rntcsv::document doc(path, rntcsv::label_parameters(-1, -1));
 
-    unittest::ExpectEqual(int, doc.GetCell<int>(0, 0), 100);
-    unittest::ExpectEqual(int, doc.GetCell<int>(1, 0), 1000);
-    unittest::ExpectEqual(int, doc.GetCell<int>(2, 0), 10000);
-    unittest::ExpectEqual(int, doc.GetCell<int>(3, 0), 100000);
+    unittest::ExpectEqual(int, doc.cell<int>(0, 0), 100);
+    unittest::ExpectEqual(int, doc.cell<int>(1, 0), 1000);
+    unittest::ExpectEqual(int, doc.cell<int>(2, 0), 10000);
+    unittest::ExpectEqual(int, doc.cell<int>(3, 0), 100000);
 
-    unittest::ExpectEqual(int, doc.GetCell<int>(0, 1), 10);
-    unittest::ExpectEqual(int, doc.GetCell<int>(1, 1), 1);
-    unittest::ExpectEqual(int, doc.GetCell<int>(2, 1), 0);
-    unittest::ExpectEqual(int, doc.GetCell<int>(3, 1), 1);
+    unittest::ExpectEqual(int, doc.cell<int>(0, 1), 10);
+    unittest::ExpectEqual(int, doc.cell<int>(1, 1), 1);
+    unittest::ExpectEqual(int, doc.cell<int>(2, 1), 0);
+    unittest::ExpectEqual(int, doc.cell<int>(3, 1), 1);
 
-    doc.SetCell<int>(0, 0, 12345);
-    unittest::ExpectEqual(std::string, doc.GetCell<std::string>(0, 0), "123.45");
+      doc.set_cell<int>(0, 0, 12345);
+    unittest::ExpectEqual(std::string, doc.cell<std::string>(0, 0), "123.45");
   }
   catch (const std::exception& ex)
   {

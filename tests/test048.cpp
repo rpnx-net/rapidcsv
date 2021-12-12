@@ -22,13 +22,13 @@ int main()
     rntcsv::document doc(path, rntcsv::label_parameters(0, 0), rntcsv::separator_parameters(),
                          rntcsv::converter_parameters(true));
 
-    unittest::ExpectEqual(int, doc.GetCell<int>(0, 0), 0);
-    unittest::ExpectEqual(long long, doc.GetCell<long long>(1, 0), 0);
-    unittest::ExpectEqual(unsigned int, doc.GetCell<unsigned int>(2, 0), 0);
+    unittest::ExpectEqual(int, doc.cell<int>(0, 0), 0);
+    unittest::ExpectEqual(long long, doc.cell<long long>(1, 0), 0);
+    unittest::ExpectEqual(unsigned int, doc.cell<unsigned int>(2, 0), 0);
 
-    unittest::ExpectTrue(std::isnan(doc.GetCell<double>(0, 1)));
-    unittest::ExpectTrue(std::isnan(doc.GetCell<long double>(1, 1)));
-    unittest::ExpectTrue(std::isnan(doc.GetCell<float>(2, 1)));
+    unittest::ExpectTrue(std::isnan(doc.cell<double>(0, 1)));
+    unittest::ExpectTrue(std::isnan(doc.cell<long double>(1, 1)));
+    unittest::ExpectTrue(std::isnan(doc.cell<float>(2, 1)));
   }
   catch (const std::exception& ex)
   {

@@ -19,20 +19,20 @@ int main()
   try
   {
     rntcsv::document doc(path, rntcsv::label_parameters(0, 0));
-    unittest::ExpectEqual(std::string, doc.GetColumnName(0), "A");
-    unittest::ExpectEqual(std::string, doc.GetColumnName(1), "B");
-    unittest::ExpectEqual(std::string, doc.GetColumnName(2), "C");
-    ExpectException(doc.GetColumnName(3), std::out_of_range);
+    unittest::ExpectEqual(std::string, doc.column_name(0), "A");
+    unittest::ExpectEqual(std::string, doc.column_name(1), "B");
+    unittest::ExpectEqual(std::string, doc.column_name(2), "C");
+    ExpectException(doc.column_name(3), std::out_of_range);
 
     rntcsv::document doc2(path, rntcsv::label_parameters(-1, -1));
-    ExpectException(doc2.GetColumnName(0), std::out_of_range);
+    ExpectException(doc2.column_name(0), std::out_of_range);
 
     rntcsv::document doc3(path, rntcsv::label_parameters(0, -1));
-    unittest::ExpectEqual(std::string, doc3.GetColumnName(0), "-");
-    unittest::ExpectEqual(std::string, doc3.GetColumnName(1), "A");
-    unittest::ExpectEqual(std::string, doc3.GetColumnName(2), "B");
-    unittest::ExpectEqual(std::string, doc3.GetColumnName(3), "C");
-    ExpectException(doc3.GetColumnName(4), std::out_of_range);
+    unittest::ExpectEqual(std::string, doc3.column_name(0), "-");
+    unittest::ExpectEqual(std::string, doc3.column_name(1), "A");
+    unittest::ExpectEqual(std::string, doc3.column_name(2), "B");
+    unittest::ExpectEqual(std::string, doc3.column_name(3), "C");
+    ExpectException(doc3.column_name(4), std::out_of_range);
   }
   catch (const std::exception& ex)
   {

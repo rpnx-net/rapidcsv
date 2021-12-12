@@ -19,10 +19,10 @@ int main()
   try
   {
     rntcsv::document doc(path);
-    unittest::ExpectEqual(size_t, doc.GetRowCount(), 2);
+    unittest::ExpectEqual(size_t, doc.row_count(), 2);
 
       doc.clear();
-    unittest::ExpectEqual(size_t, doc.GetRowCount(), 0);
+    unittest::ExpectEqual(size_t, doc.row_count(), 0);
   }
   catch (const std::exception& ex)
   {

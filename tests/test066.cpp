@@ -18,8 +18,8 @@ int main()
   try
   {
     rntcsv::document doc(path, rntcsv::label_parameters(0, -1));
-    unittest::ExpectEqual(size_t, doc.GetRowCount(), 1);
-    unittest::ExpectEqual(std::string, doc.GetColumn<std::string>("ID")[0], "1");
+    unittest::ExpectEqual(size_t, doc.row_count(), 1);
+    unittest::ExpectEqual(std::string, doc.column<std::string>("ID")[0], "1");
   }
   catch (const std::exception& ex)
   {

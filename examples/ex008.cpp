@@ -22,7 +22,7 @@ int main()
 {
   rntcsv::document doc("examples/colrowhdr.csv", rntcsv::label_parameters(0, 0));
 
-  std::vector<int> close = doc.GetColumn<int>("Close");
+  std::vector<int> close = doc.column<int>("Close");
   std::cout << "close[0]  = " << close[0] << std::endl;
   std::cout << "close[1]  = " << close[1] << std::endl;
 }

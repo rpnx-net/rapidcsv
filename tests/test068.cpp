@@ -34,11 +34,11 @@ int main()
       rntcsv::document doc(path, rntcsv::label_parameters(0 /* pColumnNameIdx */, -1 /* pRowNameIdx */),
                            rntcsv::separator_parameters(',', false /* pTrim */, rntcsv::sPlatformHasCR /* pHasCR */,
                                                         false /* pQuotedLinebreaks */, false /* pAutoQuote */));
-      unittest::ExpectEqual(std::string, doc.GetCell<std::string>("\"col 1\"", 0), "\"\"");
-      unittest::ExpectEqual(std::string, doc.GetCell<std::string>("\"col 1\"", 1), "\" \"");
-      unittest::ExpectEqual(std::string, doc.GetCell<std::string>("\"col 1\"", 2), "\"a b\"");
-      unittest::ExpectEqual(std::string, doc.GetCell<std::string>("\"col 1\"", 3), "\"\"\"a b\"\"\"");
-      unittest::ExpectEqual(std::string, doc.GetCell<std::string>("\"col 1\"", 4), "\" \"\"a\"\" \"");
+      unittest::ExpectEqual(std::string, doc.cell<std::string>("\"col 1\"", 0), "\"\"");
+      unittest::ExpectEqual(std::string, doc.cell<std::string>("\"col 1\"", 1), "\" \"");
+      unittest::ExpectEqual(std::string, doc.cell<std::string>("\"col 1\"", 2), "\"a b\"");
+      unittest::ExpectEqual(std::string, doc.cell<std::string>("\"col 1\"", 3), "\"\"\"a b\"\"\"");
+      unittest::ExpectEqual(std::string, doc.cell<std::string>("\"col 1\"", 4), "\" \"\"a\"\" \"");
     }
 
     // write
@@ -48,7 +48,7 @@ int main()
                            rntcsv::separator_parameters(',', false /* pTrim */, rntcsv::sPlatformHasCR /* pHasCR */,
                                                         false /* pQuotedLinebreaks */, false /* pAutoQuote */));
 
-      doc.Save();
+        doc.write();
       const std::string& csvread = unittest::ReadFile(path);
       unittest::ExpectEqual(std::string, csvreadref, csvread);
     }

@@ -39,28 +39,28 @@ int main()
     rntcsv::document doc(path, rntcsv::label_parameters(0, 0));
 
     // to_value
-    unittest::ExpectEqual(int, doc.GetCell<int>(0, 0, ToVal), 100);
-    unittest::ExpectEqual(int, doc.GetCell<int>(1, "1", ToVal), 1000);
-    unittest::ExpectEqual(int, doc.GetCell<int>("A", 0, ToVal), 100);
-    unittest::ExpectEqual(int, doc.GetCell<int>("B", "1", ToVal), 1000);
+    unittest::ExpectEqual(int, doc.cell<int>(0, 0, ToVal), 100);
+    unittest::ExpectEqual(int, doc.cell<int>(1, "1", ToVal), 1000);
+    unittest::ExpectEqual(int, doc.cell<int>("A", 0, ToVal), 100);
+    unittest::ExpectEqual(int, doc.cell<int>("B", "1", ToVal), 1000);
 
-    unittest::ExpectEqual(int, doc.GetRow<int>(0, ToVal).at(0), 100);
-    unittest::ExpectEqual(int, doc.GetRow<int>("2", ToVal).at(0), 10);
+    unittest::ExpectEqual(int, doc.row<int>(0, ToVal).at(0), 100);
+    unittest::ExpectEqual(int, doc.row<int>("2", ToVal).at(0), 10);
 
-    unittest::ExpectEqual(int, doc.GetColumn<int>(0, ToVal).at(0), 100);
-    unittest::ExpectEqual(int, doc.GetColumn<int>("B", ToVal).at(0), 1000);
+    unittest::ExpectEqual(int, doc.column<int>(0, ToVal).at(0), 100);
+    unittest::ExpectEqual(int, doc.column<int>("B", ToVal).at(0), 1000);
 
     // ToStruct
-    unittest::ExpectEqual(int, doc.GetCell<Struct>(0, 0, ToStruct).val, 100);
-    unittest::ExpectEqual(int, doc.GetCell<Struct>(1, "1", ToStruct).val, 1000);
-    unittest::ExpectEqual(int, doc.GetCell<Struct>("A", 0, ToStruct).val, 100);
-    unittest::ExpectEqual(int, doc.GetCell<Struct>("B", "1", ToStruct).val, 1000);
+    unittest::ExpectEqual(int, doc.cell<Struct>(0, 0, ToStruct).val, 100);
+    unittest::ExpectEqual(int, doc.cell<Struct>(1, "1", ToStruct).val, 1000);
+    unittest::ExpectEqual(int, doc.cell<Struct>("A", 0, ToStruct).val, 100);
+    unittest::ExpectEqual(int, doc.cell<Struct>("B", "1", ToStruct).val, 1000);
 
-    unittest::ExpectEqual(int, doc.GetRow<Struct>(0, ToStruct).at(0).val, 100);
-    unittest::ExpectEqual(int, doc.GetRow<Struct>("2", ToStruct).at(0).val, 10);
+    unittest::ExpectEqual(int, doc.row<Struct>(0, ToStruct).at(0).val, 100);
+    unittest::ExpectEqual(int, doc.row<Struct>("2", ToStruct).at(0).val, 10);
 
-    unittest::ExpectEqual(int, doc.GetColumn<Struct>(0, ToStruct).at(0).val, 100);
-    unittest::ExpectEqual(int, doc.GetColumn<Struct>("B", ToStruct).at(0).val, 1000);
+    unittest::ExpectEqual(int, doc.column<Struct>(0, ToStruct).at(0).val, 100);
+    unittest::ExpectEqual(int, doc.column<Struct>("B", ToStruct).at(0).val, 1000);
   }
   catch (const std::exception& ex)
   {

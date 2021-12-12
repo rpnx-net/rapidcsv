@@ -25,7 +25,7 @@ int main()
     std::ofstream ostream;
     ostream.exceptions(std::ifstream::failbit | std::ifstream::badbit);
     ostream.open(outpath, std::ios::binary | std::ios::ate);
-    doc.Save(ostream);
+      doc.write(ostream);
     ostream.close();
 
     std::string csvread = unittest::ReadFile(outpath);
@@ -33,7 +33,7 @@ int main()
 
     // to string stream
     std::ostringstream sstream;
-    doc.Save(sstream);
+      doc.write(sstream);
     unittest::ExpectEqual(std::string, csv, sstream.str());
   }
   catch (const std::exception& ex)

@@ -22,17 +22,17 @@ int main()
 
     std::vector<char> chars;
 
-    chars = doc.GetColumn<char>(0);
+    chars = doc.column<char>(0);
     unittest::ExpectEqual(size_t, chars.size(), 2);
     unittest::ExpectEqual(char, chars.at(0), 'a');
     unittest::ExpectEqual(char, chars.at(1), 'x');
 
-    chars = doc.GetColumn<char>("B");
+    chars = doc.column<char>("B");
     unittest::ExpectEqual(size_t, chars.size(), 2);
     unittest::ExpectEqual(char, chars.at(0), 'b');
     unittest::ExpectEqual(char, chars.at(1), 'y');
 
-    chars = doc.GetRow<char>("2");
+    chars = doc.row<char>("2");
     unittest::ExpectEqual(size_t, chars.size(), 3);
     unittest::ExpectEqual(char, chars.at(0), 'x');
     unittest::ExpectEqual(char, chars.at(1), 'y');

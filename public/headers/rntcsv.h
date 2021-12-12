@@ -429,7 +429,7 @@ namespace rntcsv
     {
       if (!mPath.empty())
       {
-        ReadCsv();
+          read_csv();
       }
     }
 
@@ -453,7 +453,7 @@ namespace rntcsv
       , mConverterParams(pConverterParams)
       , mLineReaderParams(pLineReaderParams)
     {
-      ReadCsv(pStream);
+        read_csv(pStream);
     }
 
     /**
@@ -477,7 +477,7 @@ namespace rntcsv
       mSeparatorParams = pSeparatorParams;
       mConverterParams = pConverterParams;
       mLineReaderParams = pLineReaderParams;
-      ReadCsv();
+        read_csv();
     }
 
     /**
@@ -489,7 +489,7 @@ namespace rntcsv
      *                                handled.
      * @param   pLineReaderParams     specifies how special line formats should be treated.
      */
-    void Load(std::istream& pStream,
+    void read(std::istream& pStream,
               const label_parameters& pLabelParams = label_parameters(),
               const separator_parameters& pSeparatorParams = separator_parameters(),
               const converter_parameters& pConverterParams = converter_parameters(),
@@ -500,7 +500,7 @@ namespace rntcsv
       mSeparatorParams = pSeparatorParams;
       mConverterParams = pConverterParams;
       mLineReaderParams = pLineReaderParams;
-      ReadCsv(pStream);
+        read_csv(pStream);
     }
 
     /**
@@ -509,7 +509,7 @@ namespace rntcsv
      *                                (if not specified, the original path provided when creating or
      *                                loading the document data will be used).
      */
-    void Save(const std::string& pPath = std::string())
+    void write(const std::string& pPath = std::string())
     {
       if (!pPath.empty())
       {
@@ -522,7 +522,7 @@ namespace rntcsv
      * @brief   Write document data to stream.
      * @param   pStream               specifies an output stream to write the data to.
      */
-    void Save(std::ostream& pStream)
+    void write(std::ostream& pStream)
     {
       WriteCsv(pStream);
     }
@@ -545,7 +545,7 @@ namespace rntcsv
      * @param   pColumnName           column label name.
      * @returns zero-based column index.
      */
-    ssize_t GetColumnIdx(const std::string& pColumnName) const
+    ssize_t column_index(const std::string& pColumnName) const
     {
       if (mLabelParams.mColumnNameIdx >= 0)
       {
@@ -563,7 +563,7 @@ namespace rntcsv
      * @returns vector of column data.
      */
     template<typename T>
-    std::vector<T> GetColumn(const size_t pColumnIdx) const
+    std::vector<T> column(const size_t pColumnIdx) const
     {
       const ssize_t columnIdx = pColumnIdx + (mLabelParams.mRowNameIdx + 1);
       std::vector<T> column;
@@ -600,7 +600,7 @@ namespace rntcsv
      * @returns vector of column data.
      */
     template<typename T>
-    std::vector<T> GetColumn(const size_t pColumnIdx, conversion_func<T> pToVal) const
+    std::vector<T> column(const size_t pColumnIdx, conversion_func<T> pToVal) const
     {
       const ssize_t columnIdx = pColumnIdx + (mLabelParams.mRowNameIdx + 1);
       std::vector<T> column;
@@ -622,14 +622,14 @@ namespace rntcsv
      * @returns vector of column data.
      */
     template<typename T>
-    std::vector<T> GetColumn(const std::string& pColumnName) const
+    std::vector<T> column(const std::string& pColumnName) const
     {
-      const ssize_t columnIdx = GetColumnIdx(pColumnName);
+      const ssize_t columnIdx = column_index(pColumnName);
       if (columnIdx < 0)
       {
         throw std::out_of_range("column not found: " + pColumnName);
       }
-      return GetColumn<T>(columnIdx);
+      return column<T>(columnIdx);
     }
 
     /**
@@ -639,14 +639,14 @@ namespace rntcsv
      * @returns vector of column data.
      */
     template<typename T>
-    std::vector<T> GetColumn(const std::string& pColumnName, conversion_func<T> pToVal) const
+    std::vector<T> column(const std::string& pColumnName, conversion_func<T> pToVal) const
     {
-      const ssize_t columnIdx = GetColumnIdx(pColumnName);
+      const ssize_t columnIdx = column_index(pColumnName);
       if (columnIdx < 0)
       {
         throw std::out_of_range("column not found: " + pColumnName);
       }
-      return GetColumn<T>(columnIdx, pToVal);
+      return column<T>(columnIdx, pToVal);
     }
 
     /**
@@ -655,7 +655,7 @@ namespace rntcsv
      * @param   pColumn               vector of column data.
      */
     template<typename T>
-    void SetColumn(const size_t pColumnIdx, const std::vector<T>& pColumn)
+    void assign_column(const size_t pColumnIdx, const std::vector<T>& pColumn)
     {
       const size_t columnIdx = pColumnIdx + (mLabelParams.mRowNameIdx + 1);
 
@@ -689,21 +689,21 @@ namespace rntcsv
      * @param   pColumn               vector of column data.
      */
     template<typename T>
-    void SetColumn(const std::string& pColumnName, const std::vector<T>& pColumn)
+    void assign_column(const std::string& pColumnName, const std::vector<T>& pColumn)
     {
-      const ssize_t columnIdx = GetColumnIdx(pColumnName);
+      const ssize_t columnIdx = column_index(pColumnName);
       if (columnIdx < 0)
       {
         throw std::out_of_range("column not found: " + pColumnName);
       }
-      SetColumn<T>(columnIdx, pColumn);
+        assign_column<T>(columnIdx, pColumn);
     }
 
     /**
      * @brief   Remove column by index.
      * @param   pColumnIdx            zero-based column index.
      */
-    void RemoveColumn(const size_t pColumnIdx)
+    void erase_column(const size_t pColumnIdx)
     {
       const ssize_t columnIdx = pColumnIdx + (mLabelParams.mRowNameIdx + 1);
       for (auto itRow = mData.begin(); itRow != mData.end(); ++itRow)
@@ -716,15 +716,15 @@ namespace rntcsv
      * @brief   Remove column by name.
      * @param   pColumnName           column label name.
      */
-    void RemoveColumn(const std::string& pColumnName)
+    void erase_column(const std::string& pColumnName)
     {
-      ssize_t columnIdx = GetColumnIdx(pColumnName);
+      ssize_t columnIdx = column_index(pColumnName);
       if (columnIdx < 0)
       {
         throw std::out_of_range("column not found: " + pColumnName);
       }
 
-      RemoveColumn(columnIdx);
+        erase_column(columnIdx);
     }
 
     /**
@@ -734,8 +734,8 @@ namespace rntcsv
      * @param   pColumnName           column label name (optional argument).
      */
     template<typename T>
-    void InsertColumn(const size_t pColumnIdx, const std::vector<T>& pColumn = std::vector<T>(),
-                      const std::string& pColumnName = std::string())
+    void insert_column(const size_t pColumnIdx, const std::vector<T>& pColumn = std::vector<T>(),
+                       const std::string& pColumnName = std::string())
     {
       const size_t columnIdx = pColumnIdx + (mLabelParams.mRowNameIdx + 1);
 
@@ -774,7 +774,7 @@ namespace rntcsv
 
       if (!pColumnName.empty())
       {
-        SetColumnName(pColumnIdx, pColumnName);
+          set_column_name(pColumnIdx, pColumnName);
       }
     }
 
@@ -782,7 +782,7 @@ namespace rntcsv
      * @brief   Get number of data columns (excluding label columns).
      * @returns column count.
      */
-    size_t GetColumnCount() const
+    size_t column_count() const
     {
       const ssize_t count = static_cast<ssize_t>((mData.size() > 0) ? mData.at(0).size() : 0) -
         (mLabelParams.mRowNameIdx + 1);
@@ -794,7 +794,7 @@ namespace rntcsv
      * @param   pRowName              row label name.
      * @returns zero-based row index.
      */
-    ssize_t GetRowIdx(const std::string& pRowName) const
+    ssize_t row_index(const std::string& pRowName) const
     {
       if (mLabelParams.mRowNameIdx >= 0)
       {
@@ -812,7 +812,7 @@ namespace rntcsv
      * @returns vector of row data.
      */
     template<typename T>
-    std::vector<T> GetRow(const size_t pRowIdx) const
+    std::vector<T> row(const size_t pRowIdx) const
     {
       const ssize_t rowIdx = pRowIdx + (mLabelParams.mColumnNameIdx + 1);
       std::vector<T> row;
@@ -836,7 +836,7 @@ namespace rntcsv
      * @returns vector of row data.
      */
     template<typename T>
-    std::vector<T> GetRow(const size_t pRowIdx, conversion_func<T> pToVal) const
+    std::vector<T> row(const size_t pRowIdx, conversion_func<T> pToVal) const
     {
       const ssize_t rowIdx = pRowIdx + (mLabelParams.mColumnNameIdx + 1);
       std::vector<T> row;
@@ -859,14 +859,14 @@ namespace rntcsv
      * @returns vector of row data.
      */
     template<typename T>
-    std::vector<T> GetRow(const std::string& pRowName) const
+    std::vector<T> row(const std::string& pRowName) const
     {
-      ssize_t rowIdx = GetRowIdx(pRowName);
+      ssize_t rowIdx = row_index(pRowName);
       if (rowIdx < 0)
       {
         throw std::out_of_range("row not found: " + pRowName);
       }
-      return GetRow<T>(rowIdx);
+      return row<T>(rowIdx);
     }
 
     /**
@@ -876,14 +876,14 @@ namespace rntcsv
      * @returns vector of row data.
      */
     template<typename T>
-    std::vector<T> GetRow(const std::string& pRowName, conversion_func<T> pToVal) const
+    std::vector<T> row(const std::string& pRowName, conversion_func<T> pToVal) const
     {
-      ssize_t rowIdx = GetRowIdx(pRowName);
+      ssize_t rowIdx = row_index(pRowName);
       if (rowIdx < 0)
       {
         throw std::out_of_range("row not found: " + pRowName);
       }
-      return GetRow<T>(rowIdx, pToVal);
+      return row<T>(rowIdx, pToVal);
     }
 
     /**
@@ -892,7 +892,7 @@ namespace rntcsv
      * @param   pRow                  vector of row data.
      */
     template<typename T>
-    void SetRow(const size_t pRowIdx, const std::vector<T>& pRow)
+    void assign_row(const size_t pRowIdx, const std::vector<T>& pRow)
     {
       const size_t rowIdx = pRowIdx + (mLabelParams.mColumnNameIdx + 1);
 
@@ -926,21 +926,21 @@ namespace rntcsv
      * @param   pRow                  vector of row data.
      */
     template<typename T>
-    void SetRow(const std::string& pRowName, const std::vector<T>& pRow)
+    void assign_row(const std::string& pRowName, const std::vector<T>& pRow)
     {
-      ssize_t rowIdx = GetRowIdx(pRowName);
+      ssize_t rowIdx = row_index(pRowName);
       if (rowIdx < 0)
       {
         throw std::out_of_range("row not found: " + pRowName);
       }
-      return SetRow<T>(rowIdx, pRow);
+      return assign_row<T>(rowIdx, pRow);
     }
 
     /**
      * @brief   Remove row by index.
      * @param   pRowIdx               zero-based row index.
      */
-    void RemoveRow(const size_t pRowIdx)
+    void erase_row(const size_t pRowIdx)
     {
       const ssize_t rowIdx = pRowIdx + (mLabelParams.mColumnNameIdx + 1);
       mData.erase(mData.begin() + rowIdx);
@@ -950,15 +950,15 @@ namespace rntcsv
      * @brief   Remove row by name.
      * @param   pRowName              row label name.
      */
-    void RemoveRow(const std::string& pRowName)
+    void erase_row(const std::string& pRowName)
     {
-      ssize_t rowIdx = GetRowIdx(pRowName);
+      ssize_t rowIdx = row_index(pRowName);
       if (rowIdx < 0)
       {
         throw std::out_of_range("row not found: " + pRowName);
       }
 
-      RemoveRow(rowIdx);
+        erase_row(rowIdx);
     }
 
     /**
@@ -968,8 +968,8 @@ namespace rntcsv
      * @param   pRowName              row label name (optional argument).
      */
     template<typename T>
-    void InsertRow(const size_t pRowIdx, const std::vector<T>& pRow = std::vector<T>(),
-                   const std::string& pRowName = std::string())
+    void insert_row(const size_t pRowIdx, const std::vector<T>& pRow = std::vector<T>(),
+                    const std::string& pRowName = std::string())
     {
       const size_t rowIdx = pRowIdx + (mLabelParams.mColumnNameIdx + 1);
 
@@ -1001,7 +1001,7 @@ namespace rntcsv
 
       if (!pRowName.empty())
       {
-        SetRowName(pRowIdx, pRowName);
+          row_name(pRowIdx, pRowName);
       }
     }
 
@@ -1009,7 +1009,7 @@ namespace rntcsv
      * @brief   Get number of data rows (excluding label rows).
      * @returns row count.
      */
-    size_t GetRowCount() const
+    size_t row_count() const
     {
       const ssize_t count = static_cast<ssize_t>(mData.size()) - (mLabelParams.mColumnNameIdx + 1);
       return (count >= 0) ? count : 0;
@@ -1022,7 +1022,7 @@ namespace rntcsv
      * @returns cell data.
      */
     template<typename T>
-    T GetCell(const size_t pColumnIdx, const size_t pRowIdx) const
+    T cell(const size_t pColumnIdx, const size_t pRowIdx) const
     {
       const ssize_t columnIdx = pColumnIdx + (mLabelParams.mRowNameIdx + 1);
       const ssize_t rowIdx = pRowIdx + (mLabelParams.mColumnNameIdx + 1);
@@ -1041,7 +1041,7 @@ namespace rntcsv
      * @returns cell data.
      */
     template<typename T>
-    T GetCell(const size_t pColumnIdx, const size_t pRowIdx, conversion_func<T> pToVal) const
+    T cell(const size_t pColumnIdx, const size_t pRowIdx, conversion_func<T> pToVal) const
     {
       const ssize_t columnIdx = pColumnIdx + (mLabelParams.mRowNameIdx + 1);
       const ssize_t rowIdx = pRowIdx + (mLabelParams.mColumnNameIdx + 1);
@@ -1058,21 +1058,21 @@ namespace rntcsv
      * @returns cell data.
      */
     template<typename T>
-    T GetCell(const std::string& pColumnName, const std::string& pRowName) const
+    T cell(const std::string& pColumnName, const std::string& pRowName) const
     {
-      const ssize_t columnIdx = GetColumnIdx(pColumnName);
+      const ssize_t columnIdx = column_index(pColumnName);
       if (columnIdx < 0)
       {
         throw std::out_of_range("column not found: " + pColumnName);
       }
 
-      const ssize_t rowIdx = GetRowIdx(pRowName);
+      const ssize_t rowIdx = row_index(pRowName);
       if (rowIdx < 0)
       {
         throw std::out_of_range("row not found: " + pRowName);
       }
 
-      return GetCell<T>(columnIdx, rowIdx);
+      return cell<T>(columnIdx, rowIdx);
     }
 
     /**
@@ -1083,21 +1083,21 @@ namespace rntcsv
      * @returns cell data.
      */
     template<typename T>
-    T GetCell(const std::string& pColumnName, const std::string& pRowName, conversion_func<T> pToVal) const
+    T cell(const std::string& pColumnName, const std::string& pRowName, conversion_func<T> pToVal) const
     {
-      const ssize_t columnIdx = GetColumnIdx(pColumnName);
+      const ssize_t columnIdx = column_index(pColumnName);
       if (columnIdx < 0)
       {
         throw std::out_of_range("column not found: " + pColumnName);
       }
 
-      const ssize_t rowIdx = GetRowIdx(pRowName);
+      const ssize_t rowIdx = row_index(pRowName);
       if (rowIdx < 0)
       {
         throw std::out_of_range("row not found: " + pRowName);
       }
 
-      return GetCell<T>(columnIdx, rowIdx, pToVal);
+      return cell<T>(columnIdx, rowIdx, pToVal);
     }
 
     /**
@@ -1107,15 +1107,15 @@ namespace rntcsv
      * @returns cell data.
      */
     template<typename T>
-    T GetCell(const std::string& pColumnName, const size_t pRowIdx) const
+    T cell(const std::string& pColumnName, const size_t pRowIdx) const
     {
-      const ssize_t columnIdx = GetColumnIdx(pColumnName);
+      const ssize_t columnIdx = column_index(pColumnName);
       if (columnIdx < 0)
       {
         throw std::out_of_range("column not found: " + pColumnName);
       }
 
-      return GetCell<T>(columnIdx, pRowIdx);
+      return cell<T>(columnIdx, pRowIdx);
     }
 
     /**
@@ -1126,15 +1126,15 @@ namespace rntcsv
      * @returns cell data.
      */
     template<typename T>
-    T GetCell(const std::string& pColumnName, const size_t pRowIdx, conversion_func<T> pToVal) const
+    T cell(const std::string& pColumnName, const size_t pRowIdx, conversion_func<T> pToVal) const
     {
-      const ssize_t columnIdx = GetColumnIdx(pColumnName);
+      const ssize_t columnIdx = column_index(pColumnName);
       if (columnIdx < 0)
       {
         throw std::out_of_range("column not found: " + pColumnName);
       }
 
-      return GetCell<T>(columnIdx, pRowIdx, pToVal);
+      return cell<T>(columnIdx, pRowIdx, pToVal);
     }
 
     /**
@@ -1144,15 +1144,15 @@ namespace rntcsv
      * @returns cell data.
      */
     template<typename T>
-    T GetCell(const size_t pColumnIdx, const std::string& pRowName) const
+    T cell(const size_t pColumnIdx, const std::string& pRowName) const
     {
-      const ssize_t rowIdx = GetRowIdx(pRowName);
+      const ssize_t rowIdx = row_index(pRowName);
       if (rowIdx < 0)
       {
         throw std::out_of_range("row not found: " + pRowName);
       }
 
-      return GetCell<T>(pColumnIdx, rowIdx);
+      return cell<T>(pColumnIdx, rowIdx);
     }
 
     /**
@@ -1163,15 +1163,15 @@ namespace rntcsv
      * @returns cell data.
      */
     template<typename T>
-    T GetCell(const size_t pColumnIdx, const std::string& pRowName, conversion_func<T> pToVal) const
+    T cell(const size_t pColumnIdx, const std::string& pRowName, conversion_func<T> pToVal) const
     {
-      const ssize_t rowIdx = GetRowIdx(pRowName);
+      const ssize_t rowIdx = row_index(pRowName);
       if (rowIdx < 0)
       {
         throw std::out_of_range("row not found: " + pRowName);
       }
 
-      return GetCell<T>(pColumnIdx, rowIdx, pToVal);
+      return cell<T>(pColumnIdx, rowIdx, pToVal);
     }
 
     /**
@@ -1181,7 +1181,7 @@ namespace rntcsv
      * @param   pCell                 cell data.
      */
     template<typename T>
-    void SetCell(const size_t pColumnIdx, const size_t pRowIdx, const T& pCell)
+    void set_cell(const size_t pColumnIdx, const size_t pRowIdx, const T& pCell)
     {
       const size_t columnIdx = pColumnIdx + (mLabelParams.mRowNameIdx + 1);
       const size_t rowIdx = pRowIdx + (mLabelParams.mColumnNameIdx + 1);
@@ -1214,21 +1214,21 @@ namespace rntcsv
      * @param   pCell                 cell data.
      */
     template<typename T>
-    void SetCell(const std::string& pColumnName, const std::string& pRowName, const T& pCell)
+    void set_cell(const std::string& pColumnName, const std::string& pRowName, const T& pCell)
     {
-      const ssize_t columnIdx = GetColumnIdx(pColumnName);
+      const ssize_t columnIdx = column_index(pColumnName);
       if (columnIdx < 0)
       {
         throw std::out_of_range("column not found: " + pColumnName);
       }
 
-      const ssize_t rowIdx = GetRowIdx(pRowName);
+      const ssize_t rowIdx = row_index(pRowName);
       if (rowIdx < 0)
       {
         throw std::out_of_range("row not found: " + pRowName);
       }
 
-      SetCell<T>(columnIdx, rowIdx, pCell);
+        set_cell<T>(columnIdx, rowIdx, pCell);
     }
 
     /**
@@ -1236,7 +1236,7 @@ namespace rntcsv
      * @param   pColumnIdx            zero-based column index.
      * @returns column name.
      */
-    std::string GetColumnName(const ssize_t pColumnIdx)
+    std::string column_name(const ssize_t pColumnIdx)
     {
       const ssize_t columnIdx = pColumnIdx + (mLabelParams.mRowNameIdx + 1);
       if (mLabelParams.mColumnNameIdx < 0)
@@ -1252,7 +1252,7 @@ namespace rntcsv
      * @param   pColumnIdx            zero-based column index.
      * @param   pColumnName           column name.
      */
-    void SetColumnName(size_t pColumnIdx, const std::string& pColumnName)
+    void set_column_name(size_t pColumnIdx, const std::string& pColumnName)
     {
       const ssize_t columnIdx = pColumnIdx + (mLabelParams.mRowNameIdx + 1);
       mColumnNames[pColumnName] = columnIdx;
@@ -1280,7 +1280,7 @@ namespace rntcsv
      * @brief   Get column names
      * @returns vector of column names.
      */
-    std::vector<std::string> GetColumnNames()
+    std::vector<std::string> column_names()
     {
       if (mLabelParams.mColumnNameIdx >= 0)
       {
@@ -1297,7 +1297,7 @@ namespace rntcsv
      * @param   pRowIdx               zero-based column index.
      * @returns row name.
      */
-    std::string GetRowName(const ssize_t pRowIdx)
+    std::string row_name(const ssize_t pRowIdx)
     {
       const ssize_t rowIdx = pRowIdx + (mLabelParams.mColumnNameIdx + 1);
       if (mLabelParams.mRowNameIdx < 0)
@@ -1313,7 +1313,7 @@ namespace rntcsv
      * @param   pRowIdx               zero-based row index.
      * @param   pRowName              row name.
      */
-    void SetRowName(size_t pRowIdx, const std::string& pRowName)
+    void row_name(size_t pRowIdx, const std::string& pRowName)
     {
       const ssize_t rowIdx = pRowIdx + (mLabelParams.mColumnNameIdx + 1);
       mRowNames[pRowName] = rowIdx;
@@ -1340,7 +1340,7 @@ namespace rntcsv
      * @brief   Get row names
      * @returns vector of row names.
      */
-    std::vector<std::string> GetRowNames()
+    std::vector<std::string> row_names()
     {
       std::vector<std::string> rownames;
       if (mLabelParams.mRowNameIdx >= 0)
@@ -1357,15 +1357,15 @@ namespace rntcsv
     }
 
   private:
-    void ReadCsv()
+    void read_csv()
     {
       std::ifstream stream;
       stream.exceptions(std::ifstream::failbit | std::ifstream::badbit);
       stream.open(mPath, std::ios::binary);
-      ReadCsv(stream);
+        read_csv(stream);
     }
 
-    void ReadCsv(std::istream& pStream)
+    void read_csv(std::istream& pStream)
     {
         clear();
       pStream.seekg(0, std::ios::end);

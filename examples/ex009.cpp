@@ -28,11 +28,11 @@ int main()
 {
   rntcsv::document doc("examples/colrowhdr.csv", rntcsv::label_parameters(0, 0));
 
-  std::cout << "regular         = " << doc.GetCell<int>("Close", "2017-02-21") << "\n";
-  std::cout << "fixpointfunc    = " << doc.GetCell<int>("Close", "2017-02-21", ConvFixPoint) << "\n";
+  std::cout << "regular         = " << doc.cell<int>("Close", "2017-02-21") << "\n";
+  std::cout << "fixpointfunc    = " << doc.cell<int>("Close", "2017-02-21", ConvFixPoint) << "\n";
 
   auto convFixLambda = [](const std::string& pStr, int& pVal) { pVal = static_cast<int>(roundf(100.0f * stof(pStr))); };
-  std::cout << "fixpointlambda  = " << doc.GetCell<int>("Close", "2017-02-21", convFixLambda) << "\n";
+  std::cout << "fixpointlambda  = " << doc.cell<int>("Close", "2017-02-21", convFixLambda) << "\n";
 
-  std::cout << "mystruct        = " << doc.GetCell<MyStruct>("Close", "2017-02-21", ConvMyStruct).val << "\n";
+  std::cout << "mystruct        = " << doc.cell<MyStruct>("Close", "2017-02-21", ConvMyStruct).val << "\n";
 }

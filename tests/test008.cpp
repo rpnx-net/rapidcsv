@@ -28,10 +28,10 @@ int main()
   {
     rntcsv::document doc(path, rntcsv::label_parameters(0, 0));
 
-    doc.RemoveRow("3");
-    doc.RemoveRow(0);
+      doc.erase_row("3");
+      doc.erase_row(0);
 
-    doc.Save();
+      doc.write();
 
     std::string csvread = unittest::ReadFile(path);
 
