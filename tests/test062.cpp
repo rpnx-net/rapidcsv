@@ -1,6 +1,6 @@
 // test062.cpp - read cell value by mixed name / index
 
-#include <rapidcsv.h>
+#include <rntcsv.h>
 #include "unittest.h"
 
 int main()

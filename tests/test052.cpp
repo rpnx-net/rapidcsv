@@ -1,6 +1,6 @@
 // test052.cpp - read numbers with scientific notation
 
-#include <rapidcsv.h>
+#include <rntcsv.h>
 #include "unittest.h"
 
 int main()

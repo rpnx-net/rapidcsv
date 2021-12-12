@@ -1,6 +1,6 @@
 // test074.cpp - generate new document by row labels
 
-#include <rapidcsv.h>
+#include <rntcsv.h>
 #include "unittest.h"
 
 int main()

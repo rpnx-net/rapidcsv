@@ -1,6 +1,6 @@
 // test046.cpp - write data with custom separator
 
-#include <rapidcsv.h>
+#include <rntcsv.h>
 #include "unittest.h"
 
 int main()

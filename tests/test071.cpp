@@ -1,6 +1,6 @@
 // test071.cpp - get row index, no column labels
 
-#include <rapidcsv.h>
+#include <rntcsv.h>
 #include "unittest.h"
 
 int main()

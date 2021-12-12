@@ -1,6 +1,6 @@
 // test026.cpp - set column values, no row/column labels
 
-#include <rapidcsv.h>
+#include <rntcsv.h>
 #include "unittest.h"
 
 int main()

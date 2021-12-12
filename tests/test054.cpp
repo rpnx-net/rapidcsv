@@ -1,6 +1,6 @@
 // test054.cpp - read from stream
 
-#include <rapidcsv.h>
+#include <rntcsv.h>
 #include "unittest.h"
 
 int main()

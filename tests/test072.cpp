@@ -1,6 +1,6 @@
 // test072.cpp - get column index
 
-#include <rapidcsv.h>
+#include <rntcsv.h>
 #include "unittest.h"
 
 int main()

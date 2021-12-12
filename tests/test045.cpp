@@ -1,6 +1,6 @@
 // test045.cpp - read data with custom separator
 
-#include <rapidcsv.h>
+#include <rntcsv.h>
 #include "unittest.h"
 
 int main()

@@ -5,7 +5,7 @@ set(CXX_STANDARD 17)
 
 
 add_library(rntcsv INTERFACE)
-target_sources(rntcsv PRIVATE public/headers/rapidcsv.h)
+target_sources(rntcsv PRIVATE public/headers/rntcsv.h)
 target_include_directories(rntcsv INTERFACE public/headers)
 
 enable_testing()

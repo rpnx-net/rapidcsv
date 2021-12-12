@@ -1,6 +1,6 @@
 // test068.cpp - test automatic dequote disabled
 
-#include "rapidcsv.h"
+#include "rntcsv.h"
 #include "unittest.h"
 
 int main()
