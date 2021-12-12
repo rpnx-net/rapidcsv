@@ -1,4 +1,11 @@
 /*
+* rpnx-net/rntcsv
+* https://github.com/rpnx-net/rntcsv
+* Forked from rapidcsv
+* 
+* Copyright (C) 2021 Ryan P. Nicholl
+* All rights reserved.
+* 
  * rapidcsv.h
  *
  * URL:      https://github.com/d99kris/rapidcsv
@@ -11,7 +18,8 @@
  *
  */
 
-#pragma once
+#ifndef RNT_RNTCSV_HPP
+#define RNT_RNTCSV_HPP
 
 #include <algorithm>
 #include <cassert>
@@ -1718,3 +1726,5 @@ namespace rapidcsv
 #endif
   };
 }
+
+#endif
