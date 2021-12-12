@@ -3,7 +3,7 @@ Rapidcsv
 
 | **Linux** | **Mac** | **Windows** |
 |-----------|---------|-------------|
-| [![Linux](https://github.com/d99kris/rntcsv/workflows/Linux/badge.svg)](https://github.com/d99kris/rntcsv/actions?query=workflow%3ALinux) | [![macOS](https://github.com/d99kris/rntcsv/workflows/macOS/badge.svg)](https://github.com/d99kris/rntcsv/actions?query=workflow%3AmacOS) | [![Windows](https://github.com/d99kris/rntcsv/workflows/Windows/badge.svg)](https://github.com/d99kris/rntcsv/actions?query=workflow%3AWindows) |
+| [![Linux](https://github.com/rpnx-net/rntcsv/workflows/Linux/badge.svg)](https://github.com/d99kris/rntcsv/actions?query=workflow%3ALinux) | [![macOS](https://github.com/rpnx-net/rntcsv/workflows/macOS/badge.svg)](https://github.com/rpnx-net/rntcsv/actions?query=workflow%3AmacOS) | [![Windows](https://github.com/rpnx-net/rpnx-net/workflows/Windows/badge.svg)](https://github.com/rpnx-net/rntcsv/actions?query=workflow%3AWindows) |
 
 Rapidcsv is a C++ header-only library for CSV parsing. While the name
 admittedly was inspired by the rapidjson project, the objectives are not the
