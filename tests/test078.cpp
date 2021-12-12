@@ -1,4 +1,4 @@
-// test078.cpp - include Windows.h before rapidcsv.h
+// test078.cpp - include Windows.h before rntcsv.h
 
 #if defined(_MSC_VER)
 #include <Windows.h>
@@ -22,7 +22,7 @@ int main()
 
   try
   {
-    rapidcsv::Document doc(path, rapidcsv::LabelParams(0, 0));
+    rntcsv::Document doc(path, rntcsv::LabelParams(0, 0));
     unittest::ExpectEqual(int, doc.GetCell<int>(0, 0), 3);
     unittest::ExpectEqual(int, doc.GetCell<int>(1, 0), 9);
     unittest::ExpectEqual(int, doc.GetCell<int>(2, 0), 81);

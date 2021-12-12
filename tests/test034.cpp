@@ -20,9 +20,9 @@ int main()
 
   try
   {
-    rapidcsv::Document doc(path, rapidcsv::LabelParams(0, 0));
+    rntcsv::Document doc(path, rntcsv::LabelParams(0, 0));
 
-    rapidcsv::Document doccopy(doc);
+    rntcsv::Document doccopy(doc);
 
     doccopy.Save(pathcopy);
 

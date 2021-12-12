@@ -1,4 +1,4 @@
-## class rapidcsv::ConverterParams
+## class rntcsv::ConverterParams
 
 Datastructure holding parameters controlling how invalid numbers (including empty strings) should be handled.  
 

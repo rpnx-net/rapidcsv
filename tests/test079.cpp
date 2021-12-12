@@ -31,7 +31,7 @@ int main()
   try
   {
     std::istringstream sstream1(csv1);
-    rapidcsv::Document doc(sstream1);
+    rntcsv::Document doc(sstream1);
     unittest::ExpectEqual(size_t, doc.GetRowCount(), 2);
 
     std::istringstream sstream2(csv2);

@@ -3,11 +3,11 @@ Rapidcsv
 
 | **Linux** | **Mac** | **Windows** |
 |-----------|---------|-------------|
-| [![Linux](https://github.com/d99kris/rapidcsv/workflows/Linux/badge.svg)](https://github.com/d99kris/rapidcsv/actions?query=workflow%3ALinux) | [![macOS](https://github.com/d99kris/rapidcsv/workflows/macOS/badge.svg)](https://github.com/d99kris/rapidcsv/actions?query=workflow%3AmacOS) | [![Windows](https://github.com/d99kris/rapidcsv/workflows/Windows/badge.svg)](https://github.com/d99kris/rapidcsv/actions?query=workflow%3AWindows) |
+| [![Linux](https://github.com/d99kris/rntcsv/workflows/Linux/badge.svg)](https://github.com/d99kris/rntcsv/actions?query=workflow%3ALinux) | [![macOS](https://github.com/d99kris/rntcsv/workflows/macOS/badge.svg)](https://github.com/d99kris/rntcsv/actions?query=workflow%3AmacOS) | [![Windows](https://github.com/d99kris/rntcsv/workflows/Windows/badge.svg)](https://github.com/d99kris/rntcsv/actions?query=workflow%3AWindows) |
 
 Rapidcsv is a C++ header-only library for CSV parsing. While the name
 admittedly was inspired by the rapidjson project, the objectives are not the
-same. The goal of rapidcsv is to be an easy-to-use CSV library enabling rapid
+same. The goal of rntcsv is to be an easy-to-use CSV library enabling rapid
 development. For optimal performance (be it CPU or memory usage) a CSV parser
 implemented for the specific use-case is likely to be more performant.
 
@@ -30,11 +30,11 @@ vector of floats.
 ```cpp
     #include <iostream>
     #include <vector>
-    #include "rapidcsv.h"
+    #include "rntcsv.h"
 
     int main()
     {
-      rapidcsv::Document doc("examples/colhdr.csv");
+      rntcsv::Document doc("examples/colhdr.csv");
 
       std::vector<float> col = doc.GetColumn<float>("Close");
       std::cout << "Read " << col.size() << " values." << std::endl;
@@ -55,7 +55,7 @@ been tested on:
 Installation
 ============
 Simply copy
-[src/rapidcsv.h](https://raw.githubusercontent.com/d99kris/rapidcsv/master/src/rapidcsv.h)
+[src/rntcsv.h](https://raw.githubusercontent.com/d99kris/rntcsv/master/src/rntcsv.h)
 to your project/include directory and include it. 
 
 More Examples
@@ -72,7 +72,7 @@ ex001.cpp:
 
 Reading a File with Column and Row Headers
 ------------------------------------------
-By default rapidcsv treats the first row as column headers, and the first
+By default rntcsv treats the first row as column headers, and the first
 column is treated as data. This allows accessing columns using their labels,
 but not rows or cells (only using indices). In order to treat the first column
 as row headers one needs to use LabelParams and set pRowNameIdx to 0.
@@ -92,11 +92,11 @@ as row headers one needs to use LabelParams and set pRowNameIdx to 0.
 ```cpp
     #include <iostream>
     #include <vector>
-    #include "rapidcsv.h"
+    #include "rntcsv.h"
 
     int main()
     {
-      rapidcsv::Document doc("examples/colrowhdr.csv", rapidcsv::LabelParams(0, 0));
+      rntcsv::Document doc("examples/colrowhdr.csv", rntcsv::LabelParams(0, 0));
 
       std::vector<float> close = doc.GetRow<float>("2017-02-22");
       std::cout << "Read " << close.size() << " values." << std::endl;
@@ -120,11 +120,11 @@ as row headers one needs to use LabelParams and set pRowNameIdx to 0.
 ```cpp
     #include <iostream>
     #include <vector>
-    #include "rapidcsv.h"
+    #include "rntcsv.h"
 
     int main()
     {
-      rapidcsv::Document doc("examples/rowhdr.csv", rapidcsv::LabelParams(-1, 0));
+      rntcsv::Document doc("examples/rowhdr.csv", rntcsv::LabelParams(-1, 0));
 
       std::vector<std::string> row = doc.GetRow<std::string>("2017-02-22");
       std::cout << "Read " << row.size() << " values." << std::endl;
@@ -145,11 +145,11 @@ as row headers one needs to use LabelParams and set pRowNameIdx to 0.
 ```cpp
     #include <iostream>
     #include <vector>
-    #include "rapidcsv.h"
+    #include "rntcsv.h"
 
     int main()
     {
-      rapidcsv::Document doc("examples/nohdr.csv", rapidcsv::LabelParams(-1, -1));
+      rntcsv::Document doc("examples/nohdr.csv", rntcsv::LabelParams(-1, -1));
 
       std::vector<float> close = doc.GetColumn<float>(5);
       std::cout << "Read " << close.size() << " values." << std::endl;
@@ -179,12 +179,12 @@ semi-colon as separator.
 ```cpp
     #include <iostream>
     #include <vector>
-    #include "rapidcsv.h"
+    #include "rntcsv.h"
 
     int main()
     {
-      rapidcsv::Document doc("examples/semi.csv", rapidcsv::LabelParams(0, 0),
-                             rapidcsv::SeparatorParams(';'));
+      rntcsv::Document doc("examples/semi.csv", rntcsv::LabelParams(0, 0),
+                             rntcsv::SeparatorParams(';'));
 
       std::vector<float> close = doc.GetColumn<float>("Close");
       std::cout << "Read " << close.size() << " values." << std::endl;
@@ -199,7 +199,7 @@ Supported Get/Set Data Types
 The internal cell representation in the Document class is using std::string
 and when other types are requested, standard conversion routines are used.
 All standard conversions are relatively straight-forward, with the
-exception of `char` for which rapidcsv interprets the cell's (first) byte
+exception of `char` for which rntcsv interprets the cell's (first) byte
 as a character. The following example illustrates the supported data types.
 
 [colrowhdr.csv](examples/colrowhdr.csv) content:
@@ -216,11 +216,11 @@ as a character. The following example illustrates the supported data types.
 ```cpp
     #include <iostream>
     #include <vector>
-    #include "rapidcsv.h"
+    #include "rntcsv.h"
 
     int main()
     {
-      rapidcsv::Document doc("examples/colrowhdr.csv", rapidcsv::LabelParams(0, 0));
+      rntcsv::Document doc("examples/colrowhdr.csv", rntcsv::LabelParams(0, 0));
 
       std::cout << doc.GetCell<std::string>("Volume", "2017-02-22") << std::endl;
       std::cout << doc.GetCell<int>("Volume", "2017-02-22") << std::endl;
@@ -242,16 +242,16 @@ Global Custom Data Type Conversion
 One may override conversion routines (or add new ones) by implementing ToVal()
 and/or ToStr(). Below is an example overriding int conversion, to instead provide
 two decimal fixed-point numbers. Also see 
-[tests/test035.cpp](https://github.com/d99kris/rapidcsv/blob/master/tests/test035.cpp)
+[tests/test035.cpp](https://github.com/d99kris/rntcsv/blob/master/tests/test035.cpp)
 for a test overriding ToVal() and ToStr().
 
 [ex008.cpp](examples/ex008.cpp) content:
 ```cpp
     #include <iostream>
     #include <vector>
-    #include "rapidcsv.h"
+    #include "rntcsv.h"
 
-    namespace rapidcsv
+    namespace rntcsv
     {
       template<>
       void Converter<int>::ToVal(const std::string& pStr, int& pVal) const
@@ -262,7 +262,7 @@ for a test overriding ToVal() and ToStr().
 
     int main()
     {
-      rapidcsv::Document doc("examples/colrowhdr.csv", rapidcsv::LabelParams(0, 0));
+      rntcsv::Document doc("examples/colrowhdr.csv", rntcsv::LabelParams(0, 0));
 
       std::vector<int> close = doc.GetColumn<int>("Close");
       std::cout << "close[0]  = " << close[0] << std::endl;
@@ -275,13 +275,13 @@ Custom Data Type Conversion Per Call
 It is also possible to override conversions on a per-call basis, enabling more
 flexibility. This is illustrated in the following example. Additional conversion
 override usage can be found in the test 
-[tests/test063.cpp](https://github.com/d99kris/rapidcsv/blob/master/tests/test063.cpp)
+[tests/test063.cpp](https://github.com/d99kris/rntcsv/blob/master/tests/test063.cpp)
 
 [ex009.cpp](examples/ex009.cpp) content:
 ```cpp
     #include <iostream>
     #include <vector>
-    #include "rapidcsv.h"
+    #include "rntcsv.h"
 
     void ConvFixPoint(const std::string& pStr, int& pVal)
     {
@@ -300,7 +300,7 @@ override usage can be found in the test
 
     int main()
     {
-      rapidcsv::Document doc("examples/colrowhdr.csv", rapidcsv::LabelParams(0, 0));
+      rntcsv::Document doc("examples/colrowhdr.csv", rntcsv::LabelParams(0, 0));
 
       std::cout << "regular         = " << doc.GetCell<int>("Close", "2017-02-21") << "\n";
       std::cout << "fixpointfunc    = " << doc.GetCell<int>("Close", "2017-02-21", ConvFixPoint) << "\n";
@@ -314,7 +314,7 @@ override usage can be found in the test
 
 Reading CSV Data from a Stream or String
 ----------------------------------------
-In addition to specifying a filename, rapidcsv supports constructing a Document
+In addition to specifying a filename, rntcsv supports constructing a Document
 from a stream and, indirectly through stringstream, from a string. Here is a
 simple example reading CSV data from a string:
 
@@ -322,7 +322,7 @@ simple example reading CSV data from a string:
 ```cpp
     #include <iostream>
     #include <vector>
-    #include "rapidcsv.h"
+    #include "rntcsv.h"
 
     int main()
     {
@@ -336,7 +336,7 @@ simple example reading CSV data from a string:
         ;
 
       std::stringstream sstream(csv);
-      rapidcsv::Document doc(sstream, rapidcsv::LabelParams(0, 0));
+      rntcsv::Document doc(sstream, rntcsv::LabelParams(0, 0));
 
       std::vector<float> close = doc.GetColumn<float>("Close");
       std::cout << "Read " << close.size() << " values." << std::endl;
@@ -348,7 +348,7 @@ simple example reading CSV data from a string:
 
 Reading a File with Invalid Numbers (e.g. Empty Cells) as Numeric Data
 -----------------------------------------------------------------------
-By default rapidcsv throws an exception if one tries to access non-numeric
+By default rntcsv throws an exception if one tries to access non-numeric
 data as a numeric data type, as it basically propagates the underlying
 conversion routines' exceptions to the calling application.
 
@@ -360,9 +360,9 @@ std::numeric_limits<long double>::signaling_NaN() for float types, and 0 for
 integer types. Example:
 
 ```cpp
-    rapidcsv::Document doc("file.csv", rapidcsv::LabelParams(),
-                           rapidcsv::SeparatorParams(),
-                           rapidcsv::ConverterParams(true));
+    rntcsv::Document doc("file.csv", rntcsv::LabelParams(),
+                           rntcsv::SeparatorParams(),
+                           rntcsv::ConverterParams(true));
 ```
 
 Check if a Column Exists
@@ -372,7 +372,7 @@ the column and row names. To check whether a particular column name exists
 one can for example do:
 
 ```cpp
-    rapidcsv::Document doc("file.csv");
+    rntcsv::Document doc("file.csv");
     std::vector<std::string> columnNames = doc.GetColumnNames();
     bool columnExists =
       (std::find(columnNames.begin(), columnNames.end(), "A") != columnNames.end());
@@ -380,15 +380,15 @@ one can for example do:
 
 Handling Quoted Cells
 ---------------------
-By default rapidcsv automatically dequotes quoted cells (i.e. removes the encapsulating
+By default rntcsv automatically dequotes quoted cells (i.e. removes the encapsulating
 `"` characters from `"example quoted cell"`). This functionality may be disabled by
 passing `pAutoQuote = false` in `SeparatorParams`, example:
 
 ```cpp
-    rapidcsv::Document doc("file.csv", rapidcsv::LabelParams(),
-                           rapidcsv::SeparatorParams(',' /* pSeparator */, 
+    rntcsv::Document doc("file.csv", rntcsv::LabelParams(),
+                           rntcsv::SeparatorParams(',' /* pSeparator */, 
                                                      false /* pTrim */, 
-                                                     rapidcsv::sPlatformHasCR /* pHasCR */,
+                                                     rntcsv::sPlatformHasCR /* pHasCR */,
                                                      false /* pQuotedLinebreaks */, 
                                                      false /* pAutoQuote */));
 ```
@@ -399,18 +399,18 @@ Rapidcsv reads all lines by default, but may be called to ignore comment lines
 starting with a specific character, example:
 
 ```cpp
-    rapidcsv::Document doc("file.csv", rapidcsv::LabelParams(), rapidcsv::SeparatorParams(),
-                           rapidcsv::ConverterParams(),
-                           rapidcsv::LineReaderParams(true /* pSkipCommentLines */,
+    rntcsv::Document doc("file.csv", rntcsv::LabelParams(), rntcsv::SeparatorParams(),
+                           rntcsv::ConverterParams(),
+                           rntcsv::LineReaderParams(true /* pSkipCommentLines */,
                                                       '#' /* pCommentPrefix */));
 ```
 
 Using LineReaderParams it is also possible to skip empty lines, example:
 
 ```cpp
-    rapidcsv::Document doc("file.csv", rapidcsv::LabelParams(), rapidcsv::SeparatorParams(),
-                           rapidcsv::ConverterParams(),
-                           rapidcsv::LineReaderParams(false /* pSkipCommentLines */,
+    rntcsv::Document doc("file.csv", rntcsv::LabelParams(), rntcsv::SeparatorParams(),
+                           rntcsv::ConverterParams(),
+                           rntcsv::LineReaderParams(false /* pSkipCommentLines */,
                                                       '#' /* pCommentPrefix */,
                                                       true /* pSkipEmptyLines */));
 ```
@@ -418,8 +418,8 @@ Using LineReaderParams it is also possible to skip empty lines, example:
 UTF-16 and UTF-8
 ----------------
 Rapidcsv's preferred encoding for non-ASCII text is UTF-8. UTF-16 LE and
-UTF-16 BE can be read and written by rapidcsv on systems where codecvt header
-is present. Define HAS_CODECVT before including rapidcsv.h in order to enable
+UTF-16 BE can be read and written by rntcsv on systems where codecvt header
+is present. Define HAS_CODECVT before including rntcsv.h in order to enable
 the functionality. Rapidcsv unit tests automatically detects the presence of
 codecvt and sets HAS_CODECVT as needed, see [CMakeLists.txt](CMakeLists.txt)
 for reference. When enabled, the UTF-16 encoding of any loaded file is
@@ -434,13 +434,13 @@ particular its [CMakeLists.txt](examples/cmake-fetchcontent/CMakeLists.txt).
 API Documentation
 =================
 The following classes makes up the Rapidcsv interface:
- - [class rapidcsv::Document](doc/rapidcsv_Document.md)
- - [class rapidcsv::LabelParams](doc/rapidcsv_LabelParams.md)
- - [class rapidcsv::SeparatorParams](doc/rapidcsv_SeparatorParams.md)
- - [class rapidcsv::ConverterParams](doc/rapidcsv_ConverterParams.md)
- - [class rapidcsv::LineReaderParams](doc/rapidcsv_LineReaderParams.md)
- - [class rapidcsv::no_converter](doc/rapidcsv_no_converter.md)
- - [class rapidcsv::Converter< T >](doc/rapidcsv_Converter.md)
+ - [class rntcsv::Document](doc/rapidcsv_Document.md)
+ - [class rntcsv::LabelParams](doc/rapidcsv_LabelParams.md)
+ - [class rntcsv::SeparatorParams](doc/rapidcsv_SeparatorParams.md)
+ - [class rntcsv::ConverterParams](doc/rapidcsv_ConverterParams.md)
+ - [class rntcsv::LineReaderParams](doc/rapidcsv_LineReaderParams.md)
+ - [class rntcsv::no_converter](doc/rapidcsv_no_converter.md)
+ - [class rntcsv::Converter< T >](doc/rapidcsv_Converter.md)
 
 Technical Details
 =================
@@ -455,7 +455,7 @@ its Markdown API documentation:
 
 Rapidcsv uses Uncrustify to ensure consistent code formatting:
 
-    uncrustify -c uncrustify.cfg --no-backup src/rapidcsv.h
+    uncrustify -c uncrustify.cfg --no-backup src/rntcsv.h
 
 Alternatives
 ============
@@ -466,12 +466,12 @@ There are many CSV parsers for C++, for example:
 License
 =======
 Rapidcsv is distributed under the BSD 3-Clause license. See
-[LICENSE](https://github.com/d99kris/rapidcsv/blob/master/LICENSE) file.
+[LICENSE](https://github.com/d99kris/rntcsv/blob/master/LICENSE) file.
 
 Contributions
 =============
 Bugs, PRs, etc are welcome on the GitHub project page
-https://github.com/d99kris/rapidcsv
+https://github.com/d99kris/rntcsv
 
 Keywords
 ========

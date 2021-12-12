@@ -1,4 +1,4 @@
-## class rapidcsv::SeparatorParams
+## class rntcsv::SeparatorParams
 
 Datastructure holding parameters controlling how the CSV data fields are separated.  
 

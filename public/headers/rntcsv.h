@@ -1,12 +1,12 @@
 /*
 * rpnx-net/rntcsv
 * https://github.com/rpnx-net/rntcsv
-* Forked from rapidcsv
+* Forked from rntcsv
 * 
 * Copyright (C) 2021 Ryan P. Nicholl
 * All rights reserved.
 * 
- * rapidcsv.h
+ * rntcsv.h
  *
  * URL:      https://github.com/d99kris/rapidcsv
  * Version:  8.53
@@ -14,7 +14,7 @@
  * Copyright (C) 2017-2021 Kristofer Berggren
  * All rights reserved.
  *
- * rapidcsv is distributed under the BSD 3-Clause license, see LICENSE for details.
+ * rntcsv is distributed under the BSD 3-Clause license, see LICENSE for details.
  *
  */
 
@@ -42,7 +42,7 @@
 typedef SSIZE_T ssize_t;
 #endif
 
-namespace rapidcsv
+namespace rntcsv
 {
 #if defined(_MSC_VER)
   static const bool sPlatformHasCR = true;
@@ -108,7 +108,7 @@ namespace rapidcsv
 
   /**
    * @brief     Class providing conversion to/from numerical datatypes and strings. Only
-   *            intended for rapidcsv internal usage, but exposed externally to allow
+   *            intended for rntcsv internal usage, but exposed externally to allow
    *            specialization for custom datatype conversions.
    */
   template<typename T>

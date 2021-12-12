@@ -17,7 +17,7 @@ int main()
 
   try
   {
-    rapidcsv::Document doc("", rapidcsv::LabelParams(0, 0), rapidcsv::SeparatorParams(',', false, false));
+    rntcsv::Document doc("", rntcsv::LabelParams(0, 0), rntcsv::SeparatorParams(',', false, false));
 
     doc.SetCell<int>(0, 0, 3);
     doc.SetCell<int>(1, 0, 9);

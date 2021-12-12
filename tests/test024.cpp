@@ -22,7 +22,7 @@ int main()
 
   try
   {
-    rapidcsv::Document doc(path, rapidcsv::LabelParams(-1, -1));
+    rntcsv::Document doc(path, rntcsv::LabelParams(-1, -1));
 
     doc.SetCell<int>(0, 0, 3);
     doc.SetCell<int>(1, 0, 9);

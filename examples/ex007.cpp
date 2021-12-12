@@ -21,7 +21,7 @@ int main()
   ;
 
   std::stringstream sstream(csv);
-  rapidcsv::Document doc(sstream, rapidcsv::LabelParams(0, 0));
+  rntcsv::Document doc(sstream, rntcsv::LabelParams(0, 0));
 
   std::vector<float> close = doc.GetColumn<float>("Close");
   std::cout << "Read " << close.size() << " values." << std::endl;

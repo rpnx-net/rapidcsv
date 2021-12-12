@@ -1,4 +1,4 @@
-## class rapidcsv::Document
+## class rntcsv::Document
 
 Class representing a CSV document.  
 

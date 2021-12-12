@@ -6,7 +6,7 @@
 #include "unittest.h"
 
 // Data requested as ints to be converted to fixed-point two decimal numbers
-namespace rapidcsv
+namespace rntcsv
 {
   template<>
   void Converter<int>::ToVal(const std::string& pStr, int& pVal) const
@@ -37,7 +37,7 @@ int main()
 
   try
   {
-    rapidcsv::Document doc(path, rapidcsv::LabelParams(-1, -1));
+    rntcsv::Document doc(path, rntcsv::LabelParams(-1, -1));
 
     unittest::ExpectEqual(int, doc.GetCell<int>(0, 0), 100);
     unittest::ExpectEqual(int, doc.GetCell<int>(1, 0), 1000);

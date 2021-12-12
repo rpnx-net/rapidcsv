@@ -11,8 +11,8 @@ exit ${RV}
 
 int main()
 {
-  rapidcsv::Document doc("examples/semi.csv", rapidcsv::LabelParams(0, 0),
-                         rapidcsv::SeparatorParams(';'));
+  rntcsv::Document doc("examples/semi.csv", rntcsv::LabelParams(0, 0),
+                       rntcsv::SeparatorParams(';'));
 
   std::vector<float> close = doc.GetColumn<float>("Close");
   std::cout << "Read " << close.size() << " values." << std::endl;

@@ -31,9 +31,9 @@ int main()
   {
     // read
     {
-      rapidcsv::Document doc(path, rapidcsv::LabelParams(0 /* pColumnNameIdx */, -1 /* pRowNameIdx */),
-                             rapidcsv::SeparatorParams(',', false /* pTrim */, rapidcsv::sPlatformHasCR /* pHasCR */,
-                                                       false /* pQuotedLinebreaks */, false /* pAutoQuote */));
+      rntcsv::Document doc(path, rntcsv::LabelParams(0 /* pColumnNameIdx */, -1 /* pRowNameIdx */),
+                           rntcsv::SeparatorParams(',', false /* pTrim */, rntcsv::sPlatformHasCR /* pHasCR */,
+                                                   false /* pQuotedLinebreaks */, false /* pAutoQuote */));
       unittest::ExpectEqual(std::string, doc.GetCell<std::string>("\"col 1\"", 0), "\"\"");
       unittest::ExpectEqual(std::string, doc.GetCell<std::string>("\"col 1\"", 1), "\" \"");
       unittest::ExpectEqual(std::string, doc.GetCell<std::string>("\"col 1\"", 2), "\"a b\"");
@@ -44,9 +44,9 @@ int main()
     // write
     {
       unittest::WriteFile(path, csvreadref);
-      rapidcsv::Document doc(path, rapidcsv::LabelParams(0 /* pColumnNameIdx */, -1 /* pRowNameIdx */),
-                             rapidcsv::SeparatorParams(',', false /* pTrim */, rapidcsv::sPlatformHasCR /* pHasCR */,
-                                                       false /* pQuotedLinebreaks */, false /* pAutoQuote */));
+      rntcsv::Document doc(path, rntcsv::LabelParams(0 /* pColumnNameIdx */, -1 /* pRowNameIdx */),
+                           rntcsv::SeparatorParams(',', false /* pTrim */, rntcsv::sPlatformHasCR /* pHasCR */,
+                                                   false /* pQuotedLinebreaks */, false /* pAutoQuote */));
 
       doc.Save();
       const std::string& csvread = unittest::ReadFile(path);

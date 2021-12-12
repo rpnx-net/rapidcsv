@@ -18,7 +18,7 @@ int main()
 
   try
   {
-    rapidcsv::Document doc(path);
+    rntcsv::Document doc(path);
     unittest::ExpectEqual(size_t, doc.GetRowCount(), 2);
 
     doc.Clear();

@@ -3,9 +3,9 @@
 #include <rntcsv.h>
 #include "unittest.h"
 
-rapidcsv::Document LoadDoc(const std::string& p_Path)
+rntcsv::Document LoadDoc(const std::string& p_Path)
 {
-  rapidcsv::Document doc = rapidcsv::Document(p_Path, rapidcsv::LabelParams(0, 0));
+  rntcsv::Document doc = rntcsv::Document(p_Path, rntcsv::LabelParams(0, 0));
   return doc;
 }
 
@@ -24,17 +24,17 @@ int main()
 
   try
   {
-    rapidcsv::Document doc1 = LoadDoc(path);
+    rntcsv::Document doc1 = LoadDoc(path);
     unittest::ExpectEqual(int, doc1.GetCell<int>(0, 0), 3);
     unittest::ExpectEqual(int, doc1.GetCell<int>(1, 0), 9);
     unittest::ExpectEqual(int, doc1.GetCell<int>(2, 0), 81);
 
-    const rapidcsv::Document& doc2 = LoadDoc(path);
+    const rntcsv::Document& doc2 = LoadDoc(path);
     unittest::ExpectEqual(std::string, doc2.GetCell<std::string>("A", "2"), "4");
     unittest::ExpectEqual(std::string, doc2.GetCell<std::string>("B", "2"), "16");
     unittest::ExpectEqual(std::string, doc2.GetCell<std::string>("C", "2"), "256");
 
-    rapidcsv::Document doc3 = doc2;
+    rntcsv::Document doc3 = doc2;
     unittest::ExpectEqual(int, doc1.GetCell<int>(0, 0), 3);
     unittest::ExpectEqual(int, doc1.GetCell<int>(1, 0), 9);
     unittest::ExpectEqual(int, doc1.GetCell<int>(2, 0), 81);

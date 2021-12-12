@@ -1,4 +1,4 @@
-## class rapidcsv::LineReaderParams
+## class rntcsv::LineReaderParams
 
 Datastructure holding parameters controlling how special line formats should be treated.  
 

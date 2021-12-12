@@ -24,7 +24,7 @@ int main()
     // -,  A,  B,  C
     // 1,  3,  9,  81
     // 2,  4,  16, 256
-    rapidcsv::Document doc2(path, rapidcsv::LabelParams(-1, 0));
+    rntcsv::Document doc2(path, rntcsv::LabelParams(-1, 0));
 
     unittest::ExpectEqual(ssize_t, doc2.GetRowIdx("-"), 0);
     unittest::ExpectEqual(ssize_t, doc2.GetRowIdx("1"), 1);

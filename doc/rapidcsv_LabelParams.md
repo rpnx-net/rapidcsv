@@ -1,4 +1,4 @@
-## class rapidcsv::LabelParams
+## class rntcsv::LabelParams
 
 Datastructure holding parameters controlling which row and column should be treated as labels.  
 

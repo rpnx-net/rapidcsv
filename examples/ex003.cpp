@@ -11,7 +11,7 @@ exit ${RV}
 
 int main()
 {
-  rapidcsv::Document doc("examples/rowhdr.csv", rapidcsv::LabelParams(-1, 0));
+  rntcsv::Document doc("examples/rowhdr.csv", rntcsv::LabelParams(-1, 0));
 
   std::vector<std::string> row = doc.GetRow<std::string>("2017-02-22");
   std::cout << "Read " << row.size() << " values." << std::endl;

@@ -17,7 +17,7 @@ int main()
 
   try
   {
-    rapidcsv::Document doc(path, rapidcsv::LabelParams(0, -1));
+    rntcsv::Document doc(path, rntcsv::LabelParams(0, -1));
     unittest::ExpectEqual(size_t, doc.GetRowCount(), 1);
     unittest::ExpectEqual(std::string, doc.GetColumn<std::string>("ID")[0], "1");
   }

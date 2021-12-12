@@ -1,6 +1,6 @@
-## class rapidcsv::Converter< T >
+## class rntcsv::Converter< T >
 
-Class providing conversion to/from numerical datatypes and strings. Only intended for rapidcsv internal usage, but exposed externally to allow specialization for custom datatype conversions.  
+Class providing conversion to/from numerical datatypes and strings. Only intended for rntcsv internal usage, but exposed externally to allow specialization for custom datatype conversions.  
 
 ---
 

@@ -24,7 +24,7 @@ int main()
 
   try
   {
-    rapidcsv::Document doc(path, rapidcsv::LabelParams(-1, -1));
+    rntcsv::Document doc(path, rntcsv::LabelParams(-1, -1));
 
     doc.RemoveRow(3);
     doc.RemoveRow(0);
