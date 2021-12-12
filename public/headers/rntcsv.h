@@ -515,7 +515,7 @@ namespace rntcsv
       {
         mPath = pPath;
       }
-      WriteCsv();
+      write_csv();
     }
 
     /**
@@ -524,7 +524,7 @@ namespace rntcsv
      */
     void write(std::ostream& pStream)
     {
-      WriteCsv(pStream);
+      write_csv(pStream);
     }
 
     /**
@@ -659,14 +659,14 @@ namespace rntcsv
     {
       const size_t columnIdx = pColumnIdx + (mLabelParams.mRowNameIdx + 1);
 
-      while (pColumn.size() + (mLabelParams.mColumnNameIdx + 1) > GetDataRowCount())
+      while (pColumn.size() + (mLabelParams.mColumnNameIdx + 1) > data_row_count())
       {
         std::vector<std::string> row;
-        row.resize(GetDataColumnCount());
+        row.resize(data_column_count());
         mData.push_back(row);
       }
 
-      if ((columnIdx + 1) > GetDataColumnCount())
+      if ((columnIdx + 1) > data_column_count())
       {
         for (auto itRow = mData.begin(); itRow != mData.end(); ++itRow)
         {
@@ -742,7 +742,7 @@ namespace rntcsv
       std::vector<std::string> column;
       if (pColumn.empty())
       {
-        column.resize(GetDataRowCount());
+        column.resize(data_row_count());
       }
       else
       {
@@ -757,11 +757,11 @@ namespace rntcsv
         }
       }
 
-      while (column.size() > GetDataRowCount())
+      while (column.size() > data_row_count())
       {
         std::vector<std::string> row;
         const size_t columnCount = std::max(static_cast<size_t>(mLabelParams.mColumnNameIdx + 1),
-                                            GetDataColumnCount());
+                                            data_column_count());
         row.resize(columnCount);
         mData.push_back(row);
       }
@@ -896,14 +896,14 @@ namespace rntcsv
     {
       const size_t rowIdx = pRowIdx + (mLabelParams.mColumnNameIdx + 1);
 
-      while ((rowIdx + 1) > GetDataRowCount())
+      while ((rowIdx + 1) > data_row_count())
       {
         std::vector<std::string> row;
-        row.resize(GetDataColumnCount());
+        row.resize(data_column_count());
         mData.push_back(row);
       }
 
-      if (pRow.size() > GetDataColumnCount())
+      if (pRow.size() > data_column_count())
       {
         for (auto itRow = mData.begin(); itRow != mData.end(); ++itRow)
         {
@@ -976,7 +976,7 @@ namespace rntcsv
       std::vector<std::string> row;
       if (pRow.empty())
       {
-        row.resize(GetDataColumnCount());
+        row.resize(data_column_count());
       }
       else
       {
@@ -990,10 +990,10 @@ namespace rntcsv
         }
       }
 
-      while (rowIdx > GetDataRowCount())
+      while (rowIdx > data_row_count())
       {
         std::vector<std::string> tempRow;
-        tempRow.resize(GetDataColumnCount());
+        tempRow.resize(data_column_count());
         mData.push_back(tempRow);
       }
 
@@ -1186,14 +1186,14 @@ namespace rntcsv
       const size_t columnIdx = pColumnIdx + (mLabelParams.mRowNameIdx + 1);
       const size_t rowIdx = pRowIdx + (mLabelParams.mColumnNameIdx + 1);
 
-      while ((rowIdx + 1) > GetDataRowCount())
+      while ((rowIdx + 1) > data_row_count())
       {
         std::vector<std::string> row;
-        row.resize(GetDataColumnCount());
+        row.resize(data_column_count());
         mData.push_back(row);
       }
 
-      if ((columnIdx + 1) > GetDataColumnCount())
+      if ((columnIdx + 1) > data_column_count())
       {
         for (auto itRow = mData.begin(); itRow != mData.end(); ++itRow)
         {
@@ -1406,7 +1406,7 @@ namespace rntcsv
         wss << wstream.rdbuf();
         std::string utf8 = to_string(wss.str());
         std::stringstream ss(utf8);
-        ParseCsv(ss, utf8.size());
+        parse_csv(ss, utf8.size());
       }
       else
       {
@@ -1428,11 +1428,11 @@ namespace rntcsv
           }
         }
 
-        ParseCsv(pStream, length);
+        parse_csv(pStream, length);
       }
     }
 
-    void ParseCsv(std::istream& pStream, std::streamsize p_FileLength)
+    void parse_csv(std::istream& pStream, std::streamsize p_FileLength)
     {
       const std::streamsize bufLength = 64 * 1024;
       std::vector<char> buffer(bufLength);
@@ -1460,7 +1460,7 @@ namespace rntcsv
           {
             if (!quoted)
             {
-              row.push_back(Unquote(Trim(cell)));
+              row.push_back(unquote(trim(cell)));
               cell.clear();
             }
             else
@@ -1494,7 +1494,7 @@ namespace rntcsv
               }
               else
               {
-                row.push_back(Unquote(Trim(cell)));
+                row.push_back(unquote(trim(cell)));
 
                 if (mLineReaderParams.mSkipCommentLines && !row.at(0).empty() &&
                     (row.at(0)[0] == mLineReaderParams.mCommentPrefix))
@@ -1523,7 +1523,7 @@ namespace rntcsv
       // Handle last line without linebreak
       if (!cell.empty() || !row.empty())
       {
-        row.push_back(Unquote(Trim(cell)));
+        row.push_back(unquote(trim(cell)));
         cell.clear();
         mData.push_back(row);
         row.clear();
@@ -1559,7 +1559,7 @@ namespace rntcsv
       }
     }
 
-    void WriteCsv() const
+    void write_csv() const
     {
 #ifdef HAS_CODECVT
       if (mIsUtf16)
@@ -1594,11 +1594,11 @@ namespace rntcsv
         std::ofstream stream;
         stream.exceptions(std::ofstream::failbit | std::ofstream::badbit);
         stream.open(mPath, std::ios::binary | std::ios::trunc);
-        WriteCsv(stream);
+        write_csv(stream);
       }
     }
 
-    void WriteCsv(std::ostream& pStream) const
+    void write_csv(std::ostream& pStream) const
     {
       for (auto itr = mData.begin(); itr != mData.end(); ++itr)
       {
@@ -1610,7 +1610,7 @@ namespace rntcsv
           {
             // escape quotes in string
             std::string str = *itc;
-            ReplaceString(str, "\"", "\"\"");
+            replace_string(str, "\"", "\"\"");
 
             pStream << "\"" << str << "\"";
           }
@@ -1628,17 +1628,17 @@ namespace rntcsv
       }
     }
 
-    size_t GetDataRowCount() const
+    size_t data_row_count() const
     {
       return mData.size();
     }
 
-    size_t GetDataColumnCount() const
+    size_t data_column_count() const
     {
       return (mData.size() > 0) ? mData.at(0).size() : 0;
     }
 
-    std::string Trim(const std::string& pStr)
+    std::string trim(const std::string& pStr)
     {
       if (mSeparatorParams.mTrim)
       {
@@ -1658,7 +1658,7 @@ namespace rntcsv
       }
     }
 
-    std::string Unquote(const std::string& pStr)
+    std::string unquote(const std::string& pStr)
     {
       if (mSeparatorParams.mAutoQuote && (pStr.size() >= 2) && (pStr.front() == '"') && (pStr.back() == '"'))
       {
@@ -1666,7 +1666,7 @@ namespace rntcsv
         std::string str = pStr.substr(1, pStr.size() - 2);
 
         // unescape quotes in string
-        ReplaceString(str, "\"\"", "\"");
+        replace_string(str, "\"\"", "\"");
 
         return str;
       }
@@ -1692,7 +1692,7 @@ namespace rntcsv
 #pragma warning (default: 4996)
 #endif
 
-    static void ReplaceString(std::string& pStr, const std::string& pSearch, const std::string& pReplace)
+    static void replace_string(std::string& pStr, const std::string& pSearch, const std::string& pReplace)
     {
       size_t pos = 0;
 
