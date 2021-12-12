@@ -354,7 +354,7 @@ conversion routines' exceptions to the calling application.
 
 The reason for this is to ensure data correctness. If one wants to be able
 to read data with invalid numbers as numeric data types, one can use
-ConverterParams to configure the converter to default to a numeric value.
+converter_parameters to configure the converter to default to a numeric value.
 The value is configurable and by default it's
 std::numeric_limits<long double>::signaling_NaN() for float types, and 0 for
 integer types. Example:
@@ -362,7 +362,7 @@ integer types. Example:
 ```cpp
     rntcsv::Document doc("file.csv", rntcsv::LabelParams(),
                            rntcsv::SeparatorParams(),
-                           rntcsv::ConverterParams(true));
+                           rntcsv::converter_parameters(true));
 ```
 
 Check if a Column Exists
@@ -400,7 +400,7 @@ starting with a specific character, example:
 
 ```cpp
     rntcsv::Document doc("file.csv", rntcsv::LabelParams(), rntcsv::SeparatorParams(),
-                           rntcsv::ConverterParams(),
+                           rntcsv::converter_parameters(),
                            rntcsv::LineReaderParams(true /* pSkipCommentLines */,
                                                       '#' /* pCommentPrefix */));
 ```
@@ -409,7 +409,7 @@ Using LineReaderParams it is also possible to skip empty lines, example:
 
 ```cpp
     rntcsv::Document doc("file.csv", rntcsv::LabelParams(), rntcsv::SeparatorParams(),
-                           rntcsv::ConverterParams(),
+                           rntcsv::converter_parameters(),
                            rntcsv::LineReaderParams(false /* pSkipCommentLines */,
                                                       '#' /* pCommentPrefix */,
                                                       true /* pSkipEmptyLines */));
@@ -437,7 +437,7 @@ The following classes makes up the Rapidcsv interface:
  - [class rntcsv::Document](doc/rapidcsv_Document.md)
  - [class rntcsv::LabelParams](doc/rapidcsv_LabelParams.md)
  - [class rntcsv::SeparatorParams](doc/rapidcsv_SeparatorParams.md)
- - [class rntcsv::ConverterParams](doc/rapidcsv_ConverterParams.md)
+ - [class rntcsv::converter_parameters](doc/rapidcsv_ConverterParams.md)
  - [class rntcsv::LineReaderParams](doc/rapidcsv_LineReaderParams.md)
  - [class rntcsv::no_converter](doc/rapidcsv_no_converter.md)
  - [class rntcsv::Converter< T >](doc/rapidcsv_Converter.md)

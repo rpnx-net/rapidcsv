@@ -1,11 +1,11 @@
-## class rntcsv::ConverterParams
+## class rntcsv::converter_parameters
 
 Datastructure holding parameters controlling how invalid numbers (including empty strings) should be handled.  
 
 ---
 
 ```c++
-ConverterParams (const bool pHasDefaultConverter = false, const long double pDefaultFloat = std::numeric_limits<long double>::signaling_NaN(), const long long pDefaultInteger = 0)
+converter_parameters (const bool pHasDefaultConverter = false, const long double pDefaultFloat = std::numeric_limits<long double>::signaling_NaN(), const long long pDefaultInteger = 0)
 ```
 Constructor. 
 

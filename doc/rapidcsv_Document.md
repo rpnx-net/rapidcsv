@@ -5,7 +5,7 @@ Class representing a CSV document.
 ---
 
 ```c++
-Document (const std::string & pPath = std::string(), const LabelParams & pLabelParams = LabelParams(), const SeparatorParams & pSeparatorParams = SeparatorParams(), const ConverterParams & pConverterParams = ConverterParams(), const LineReaderParams & pLineReaderParams = LineReaderParams())
+Document (const std::string & pPath = std::string(), const LabelParams & pLabelParams = LabelParams(), const SeparatorParams & pSeparatorParams = SeparatorParams(), const converter_parameters & pConverterParams = converter_parameters(), const LineReaderParams & pLineReaderParams = LineReaderParams())
 ```
 Constructor. 
 
@@ -19,7 +19,7 @@ Constructor.
 ---
 
 ```c++
-Document (std::istream & pStream, const LabelParams & pLabelParams = LabelParams(), const SeparatorParams & pSeparatorParams = SeparatorParams(), const ConverterParams & pConverterParams = ConverterParams(), const LineReaderParams & pLineReaderParams = LineReaderParams())
+Document (std::istream & pStream, const LabelParams & pLabelParams = LabelParams(), const SeparatorParams & pSeparatorParams = SeparatorParams(), const converter_parameters & pConverterParams = converter_parameters(), const LineReaderParams & pLineReaderParams = LineReaderParams())
 ```
 Constructor. 
 
@@ -380,7 +380,7 @@ Insert row at specified index.
 ---
 
 ```c++
-void Load (const std::string & pPath, const LabelParams & pLabelParams = LabelParams(), const SeparatorParams & pSeparatorParams = SeparatorParams(), const ConverterParams & pConverterParams = ConverterParams(), const LineReaderParams & pLineReaderParams = LineReaderParams())
+void Load (const std::string & pPath, const LabelParams & pLabelParams = LabelParams(), const SeparatorParams & pSeparatorParams = SeparatorParams(), const converter_parameters & pConverterParams = converter_parameters(), const LineReaderParams & pLineReaderParams = LineReaderParams())
 ```
 Read Document data from file. 
 
@@ -394,7 +394,7 @@ Read Document data from file.
 ---
 
 ```c++
-void Load (std::istream & pStream, const LabelParams & pLabelParams = LabelParams(), const SeparatorParams & pSeparatorParams = SeparatorParams(), const ConverterParams & pConverterParams = ConverterParams(), const LineReaderParams & pLineReaderParams = LineReaderParams())
+void Load (std::istream & pStream, const LabelParams & pLabelParams = LabelParams(), const SeparatorParams & pSeparatorParams = SeparatorParams(), const converter_parameters & pConverterParams = converter_parameters(), const LineReaderParams & pLineReaderParams = LineReaderParams())
 ```
 Read Document data from stream. 
 

@@ -19,7 +19,7 @@ int main()
   try
   {
     rntcsv::Document doc(path, rntcsv::LabelParams(0, 0), rntcsv::SeparatorParams(),
-                         rntcsv::ConverterParams(true, 0.0, 1));
+                         rntcsv::converter_parameters(true, 0.0, 1));
 
     unittest::ExpectEqual(int, doc.GetCell<int>(0, 0), 1);
     unittest::ExpectEqual(long long, doc.GetCell<long long>(1, 0), 1);

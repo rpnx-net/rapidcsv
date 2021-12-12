@@ -54,7 +54,7 @@ namespace rntcsv
    * @brief     Datastructure holding parameters controlling how invalid numbers (including
    *            empty strings) should be handled.
    */
-  struct ConverterParams
+  struct converter_parameters
   {
     /**
      * @brief   Constructor
@@ -64,9 +64,9 @@ namespace rntcsv
      * @param   pDefaultFloat         floating-point default value to represent invalid numbers.
      * @param   pDefaultInteger       integer default value to represent invalid numbers.
      */
-    explicit ConverterParams(const bool pHasDefaultConverter = false,
-                             const long double pDefaultFloat = std::numeric_limits<long double>::signaling_NaN(),
-                             const long long pDefaultInteger = 0)
+    explicit converter_parameters(const bool pHasDefaultConverter = false,
+                                  const long double pDefaultFloat = std::numeric_limits<long double>::signaling_NaN(),
+                                  const long long pDefaultInteger = 0)
       : mHasDefaultConverter(pHasDefaultConverter)
       , mDefaultFloat(pDefaultFloat)
       , mDefaultInteger(pDefaultInteger)
@@ -120,7 +120,7 @@ namespace rntcsv
      * @param   pConverterParams      specifies how conversion of non-numerical values to
      *                                numerical datatype shall be handled.
      */
-    Converter(const ConverterParams& pConverterParams)
+    Converter(const converter_parameters& pConverterParams)
       : mConverterParams(pConverterParams)
     {
     }
@@ -249,7 +249,7 @@ namespace rntcsv
     }
 
   private:
-    const ConverterParams& mConverterParams;
+    const converter_parameters& mConverterParams;
   };
 
   /**
@@ -421,7 +421,7 @@ namespace rntcsv
     explicit Document(const std::string& pPath = std::string(),
                       const LabelParams& pLabelParams = LabelParams(),
                       const SeparatorParams& pSeparatorParams = SeparatorParams(),
-                      const ConverterParams& pConverterParams = ConverterParams(),
+                      const converter_parameters& pConverterParams = converter_parameters(),
                       const LineReaderParams& pLineReaderParams = LineReaderParams())
       : mPath(pPath)
       , mLabelParams(pLabelParams)
@@ -447,7 +447,7 @@ namespace rntcsv
     explicit Document(std::istream& pStream,
                       const LabelParams& pLabelParams = LabelParams(),
                       const SeparatorParams& pSeparatorParams = SeparatorParams(),
-                      const ConverterParams& pConverterParams = ConverterParams(),
+                      const converter_parameters& pConverterParams = converter_parameters(),
                       const LineReaderParams& pLineReaderParams = LineReaderParams())
       : mPath()
       , mLabelParams(pLabelParams)
@@ -471,7 +471,7 @@ namespace rntcsv
     void Load(const std::string& pPath,
               const LabelParams& pLabelParams = LabelParams(),
               const SeparatorParams& pSeparatorParams = SeparatorParams(),
-              const ConverterParams& pConverterParams = ConverterParams(),
+              const converter_parameters& pConverterParams = converter_parameters(),
               const LineReaderParams& pLineReaderParams = LineReaderParams())
     {
       mPath = pPath;
@@ -494,7 +494,7 @@ namespace rntcsv
     void Load(std::istream& pStream,
               const LabelParams& pLabelParams = LabelParams(),
               const SeparatorParams& pSeparatorParams = SeparatorParams(),
-              const ConverterParams& pConverterParams = ConverterParams(),
+              const converter_parameters& pConverterParams = converter_parameters(),
               const LineReaderParams& pLineReaderParams = LineReaderParams())
     {
       mPath = "";
@@ -1715,7 +1715,7 @@ namespace rntcsv
     std::string mPath;
     LabelParams mLabelParams;
     SeparatorParams mSeparatorParams;
-    ConverterParams mConverterParams;
+    converter_parameters mConverterParams;
     LineReaderParams mLineReaderParams;
     std::vector<std::vector<std::string>> mData;
     std::map<std::string, size_t> mColumnNames;

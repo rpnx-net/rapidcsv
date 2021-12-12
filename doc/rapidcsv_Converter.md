@@ -5,7 +5,7 @@ Class providing conversion to/from numerical datatypes and strings. Only intende
 ---
 
 ```c++
-template<typename T> Converter (const ConverterParams & pConverterParams)
+template<typename T> Converter (const converter_parameters & pConverterParams)
 ```
 Constructor. 
 
