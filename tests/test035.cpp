@@ -9,13 +9,13 @@
 namespace rntcsv
 {
   template<>
-  void converter<int>::ToVal(const std::string& pStr, int& pVal) const
+  void converter<int>::to_value(const std::string& pStr, int& pVal) const
   {
     pVal = static_cast<int>(roundf(100.0f * std::stof(pStr)));
   }
 
   template<>
-  void converter<int>::ToStr(const int& pVal, std::string& pStr) const
+  void converter<int>::to_string(const int& pVal, std::string& pStr) const
   {
     std::ostringstream out;
     out << std::fixed << std::setprecision(2) << static_cast<float>(pVal) / 100.0f;

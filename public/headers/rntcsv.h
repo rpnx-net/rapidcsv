@@ -1404,7 +1404,7 @@ namespace rntcsv
         }
         std::wstringstream wss;
         wss << wstream.rdbuf();
-        std::string utf8 = ToString(wss.str());
+        std::string utf8 = to_string(wss.str());
         std::stringstream ss(utf8);
         ParseCsv(ss, utf8.size());
       }
@@ -1679,12 +1679,12 @@ namespace rntcsv
 #if defined(_MSC_VER)
 #pragma warning (disable: 4996)
 #endif
-    static std::string ToString(const std::wstring& pWStr)
+    static std::string to_string(const std::wstring& pWStr)
     {
       return std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t>{ }.to_bytes(pWStr);
     }
 
-    static std::wstring ToWString(const std::string& pStr)
+    static std::wstring to_wstring(const std::string& pStr)
     {
       return std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t>{ }.from_bytes(pStr);
     }

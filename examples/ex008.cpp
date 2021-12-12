@@ -12,7 +12,7 @@ exit ${RV}
 namespace rntcsv
 {
   template<>
-  void converter<int>::ToVal(const std::string& pStr, int& pVal) const
+  void converter<int>::to_value(const std::string& pStr, int& pVal) const
   {
     pVal = static_cast<int>(roundf(100.0f * std::stof(pStr)));
   }
