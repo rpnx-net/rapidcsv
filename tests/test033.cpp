@@ -16,7 +16,7 @@ int main()
 
   try
   {
-    rntcsv::Document doc("", rntcsv::LabelParams(-1, -1), rntcsv::SeparatorParams(',', false, false));
+    rntcsv::document doc("", rntcsv::label_parameters(-1, -1), rntcsv::separator_parameters(',', false, false));
 
     doc.SetCell<int>(0, 0, 3);
     doc.SetCell<int>(1, 0, 9);

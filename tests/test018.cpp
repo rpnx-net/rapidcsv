@@ -28,7 +28,7 @@ int main()
 
   try
   {
-    rntcsv::Document doc(path);
+    rntcsv::document doc(path);
 
     doc.RemoveColumn("C");
     doc.RemoveColumn(0);

@@ -24,7 +24,7 @@ int main()
 
   try
   {
-    rntcsv::Document doc(path);
+    rntcsv::document doc(path);
 
     doc.SetCell<int>(0, 0, 3);
     doc.SetCell<int>(1, 0, 9);

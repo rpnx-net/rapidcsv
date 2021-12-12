@@ -18,7 +18,7 @@ int main()
 
   try
   {
-    rntcsv::Document doc(path);
+    rntcsv::document doc(path);
 
     std::vector<int> ints;
     std::vector<std::string> strs;

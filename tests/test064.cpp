@@ -19,9 +19,9 @@ int main()
 
   try
   {
-    rntcsv::SeparatorParams seppar;
+    rntcsv::separator_parameters seppar;
     seppar.mQuotedLinebreaks = true;
-    rntcsv::Document doc(path, rntcsv::LabelParams(-1, -1), seppar, rntcsv::converter_parameters());
+    rntcsv::document doc(path, rntcsv::label_parameters(-1, -1), seppar, rntcsv::converter_parameters());
 
     unittest::ExpectEqual(size_t, doc.GetRowCount(), 4);
     unittest::ExpectEqual(size_t, doc.GetColumnCount(), 4);

@@ -18,7 +18,7 @@ int main()
 
   try
   {
-    rntcsv::Document doc(path);
+    rntcsv::document doc(path);
 
     unittest::ExpectEqual(ssize_t, doc.GetColumnIdx("-"), 0);
     unittest::ExpectEqual(ssize_t, doc.GetColumnIdx("A"), 1);

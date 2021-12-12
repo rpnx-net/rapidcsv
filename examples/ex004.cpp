@@ -11,7 +11,7 @@ exit ${RV}
 
 int main()
 {
-  rntcsv::Document doc("examples/nohdr.csv", rntcsv::LabelParams(-1, -1));
+  rntcsv::document doc("examples/nohdr.csv", rntcsv::label_parameters(-1, -1));
 
   std::vector<float> close = doc.GetColumn<float>(5);
   std::cout << "Read " << close.size() << " values." << std::endl;

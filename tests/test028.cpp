@@ -22,7 +22,7 @@ int main()
 
   try
   {
-    rntcsv::Document doc(path, rntcsv::LabelParams(-1, -1));
+    rntcsv::document doc(path, rntcsv::label_parameters(-1, -1));
 
     doc.SetRow<int>(0, std::vector<int>({ 3, 9, 81 }));
     doc.SetRow<std::string>(1, std::vector<std::string>({ "4", "16", "256" }));

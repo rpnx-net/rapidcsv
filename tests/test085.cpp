@@ -9,7 +9,7 @@ int main()
 
   try
   {
-    rntcsv::Document doc("../tests/chi-utf16.csv", rntcsv::LabelParams(0, 0), rntcsv::SeparatorParams(';'));
+    rntcsv::document doc("../tests/chi-utf16.csv", rntcsv::label_parameters(0, 0), rntcsv::separator_parameters(';'));
 
     unittest::ExpectEqual(std::string, doc.GetCell<std::string>("description", "0"), "等待同PLC的Profinet通讯");
     unittest::ExpectEqual(std::string, doc.GetCell<std::string>("description", "1"), "辅助关闭");

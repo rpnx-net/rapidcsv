@@ -23,7 +23,7 @@ int main()
     // -,  A,  B,  C   ← Column Label
     // 1,  3,  9,  81
     // 2,  4,  16, 256
-    rntcsv::Document doc(path, rntcsv::LabelParams(0, 0));
+    rntcsv::document doc(path, rntcsv::label_parameters(0, 0));
 
     unittest::ExpectEqual(ssize_t, doc.GetRowIdx("-"), -1);
     unittest::ExpectEqual(ssize_t, doc.GetRowIdx("1"), 0);

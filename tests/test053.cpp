@@ -22,7 +22,7 @@ int main()
 
   try
   {
-    rntcsv::Document doc1(path, rntcsv::LabelParams(0, 0));
+    rntcsv::document doc1(path, rntcsv::label_parameters(0, 0));
 
     doc1.SetCell<double>("A", "1", 1.2e10);
     doc1.SetCell<double>("B", "1", 2.00E-07);
@@ -30,7 +30,7 @@ int main()
 
     doc1.Save();
 
-    rntcsv::Document doc2(path, rntcsv::LabelParams(0, 0));
+    rntcsv::document doc2(path, rntcsv::label_parameters(0, 0));
 
     double eps1 = 1.0e7;
     double exp1 = 1.2e10;

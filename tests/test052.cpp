@@ -17,7 +17,7 @@ int main()
 
   try
   {
-    rntcsv::Document doc(path, rntcsv::LabelParams(0, 0));
+    rntcsv::document doc(path, rntcsv::label_parameters(0, 0));
 
     double eps1 = 1.0e7;
     double exp1 = 1.2e10;

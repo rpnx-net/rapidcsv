@@ -26,7 +26,7 @@ int main()
 
   try
   {
-    rntcsv::Document doc(path);
+    rntcsv::document doc(path);
 
     doc.RemoveRow(3);
     doc.RemoveRow(0);

@@ -11,7 +11,7 @@ exit ${RV}
 
 int main()
 {
-  rntcsv::Document doc("examples/colrowhdr.csv", rntcsv::LabelParams(0, 0));
+  rntcsv::document doc("examples/colrowhdr.csv", rntcsv::label_parameters(0, 0));
 
   std::vector<float> close = doc.GetRow<float>("2017-02-22");
   std::cout << "Read " << close.size() << " values." << std::endl;

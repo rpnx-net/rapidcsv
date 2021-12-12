@@ -19,9 +19,9 @@ int main()
   unittest::WriteFile(path, csvCommentLines);
   try
   {
-    rntcsv::Document doc(path, rntcsv::LabelParams(), rntcsv::SeparatorParams(),
+    rntcsv::document doc(path, rntcsv::label_parameters(), rntcsv::separator_parameters(),
                          rntcsv::converter_parameters(),
-                         rntcsv::LineReaderParams(true, '/'));
+                         rntcsv::line_reader_parameters(true, '/'));
     unittest::ExpectEqual(size_t, doc.GetColumn<int>("A").size(), 2);
     unittest::ExpectEqual(size_t, doc.GetColumn<int>("B").size(), 2);
     unittest::ExpectEqual(size_t, doc.GetColumn<int>("C").size(), 2);

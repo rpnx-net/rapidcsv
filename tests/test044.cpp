@@ -24,7 +24,7 @@ int main()
 
   try
   {
-    rntcsv::Document doc(path, rntcsv::LabelParams(0, 0));
+    rntcsv::document doc(path, rntcsv::label_parameters(0, 0));
 
     doc.SetColumn<char>(0, std::vector<char>({ 'a', 'x' }));
     doc.SetColumn<char>(1, std::vector<char>({ 'b', 'y' }));

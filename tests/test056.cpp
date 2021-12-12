@@ -19,7 +19,7 @@ int main()
 
   try
   {
-    rntcsv::Document doc(path, rntcsv::LabelParams(0, 0));
+    rntcsv::document doc(path, rntcsv::label_parameters(0, 0));
     doc.SetCell<std::string>("C", "2", "256,8");
     doc.Save(outpath);
     std::string csvread = unittest::ReadFile(outpath);

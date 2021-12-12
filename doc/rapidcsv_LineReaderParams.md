@@ -1,11 +1,11 @@
-## class rntcsv::LineReaderParams
+## class rntcsv::line_reader_parameters
 
 Datastructure holding parameters controlling how special line formats should be treated.  
 
 ---
 
 ```c++
-LineReaderParams (const bool pSkipCommentLines = false, const char pCommentPrefix = '#', const bool pSkipEmptyLines = false)
+line_reader_parameters (const bool pSkipCommentLines = false, const char pCommentPrefix = '#', const bool pSkipEmptyLines = false)
 ```
 Constructor. 
 

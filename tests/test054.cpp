@@ -22,7 +22,7 @@ int main()
     std::ifstream fstream;
     fstream.exceptions(std::ifstream::failbit | std::ifstream::badbit);
     fstream.open(path, std::ios::binary | std::ios::ate);
-    rntcsv::Document doc1(fstream, rntcsv::LabelParams(0, 0));
+    rntcsv::document doc1(fstream, rntcsv::label_parameters(0, 0));
     fstream.close();
 
     unittest::ExpectEqual(int, doc1.GetCell<int>(0, 0), 3);
@@ -35,7 +35,7 @@ int main()
 
     // stream from string
     std::istringstream sstream(csv);
-    rntcsv::Document doc2(sstream, rntcsv::LabelParams(0, 0));
+    rntcsv::document doc2(sstream, rntcsv::label_parameters(0, 0));
 
     unittest::ExpectEqual(int, doc2.GetCell<int>(0, 0), 3);
     unittest::ExpectEqual(int, doc2.GetCell<int>(1, 0), 9);

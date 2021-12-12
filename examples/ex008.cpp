@@ -12,7 +12,7 @@ exit ${RV}
 namespace rntcsv
 {
   template<>
-  void Converter<int>::ToVal(const std::string& pStr, int& pVal) const
+  void converter<int>::ToVal(const std::string& pStr, int& pVal) const
   {
     pVal = static_cast<int>(roundf(100.0f * std::stof(pStr)));
   }
@@ -20,7 +20,7 @@ namespace rntcsv
 
 int main()
 {
-  rntcsv::Document doc("examples/colrowhdr.csv", rntcsv::LabelParams(0, 0));
+  rntcsv::document doc("examples/colrowhdr.csv", rntcsv::label_parameters(0, 0));
 
   std::vector<int> close = doc.GetColumn<int>("Close");
   std::cout << "close[0]  = " << close[0] << std::endl;

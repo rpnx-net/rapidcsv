@@ -18,11 +18,11 @@ int main()
 
   try
   {
-    rntcsv::Document doc1(path, rntcsv::LabelParams(0, 0));
+    rntcsv::document doc1(path, rntcsv::label_parameters(0, 0));
     unittest::ExpectEqual(size_t, doc1.GetColumnCount(), 3);
     unittest::ExpectEqual(size_t, doc1.GetRowCount(), 2);
 
-    rntcsv::Document doc2(path, rntcsv::LabelParams(-1, -1));
+    rntcsv::document doc2(path, rntcsv::label_parameters(-1, -1));
     unittest::ExpectEqual(size_t, doc2.GetColumnCount(), 4);
     unittest::ExpectEqual(size_t, doc2.GetRowCount(), 3);
   }

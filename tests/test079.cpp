@@ -1,4 +1,4 @@
-// test079.cpp - perform multiple Load calls on single Document instance
+// test079.cpp - perform multiple assign_from_file calls on single document instance
 
 #include <rntcsv.h>
 #include "unittest.h"
@@ -31,14 +31,14 @@ int main()
   try
   {
     std::istringstream sstream1(csv1);
-    rntcsv::Document doc(sstream1);
+    rntcsv::document doc(sstream1);
     unittest::ExpectEqual(size_t, doc.GetRowCount(), 2);
 
     std::istringstream sstream2(csv2);
     doc.Load(sstream2);
     unittest::ExpectEqual(size_t, doc.GetRowCount(), 1);
 
-    doc.Load(path);
+      doc.assign_from_file(path);
     unittest::ExpectEqual(size_t, doc.GetRowCount(), 3);
   }
   catch (const std::exception& ex)

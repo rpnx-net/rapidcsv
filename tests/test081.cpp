@@ -19,7 +19,7 @@ int main()
 
   try
   {
-    rntcsv::Document doc("", rntcsv::LabelParams(0, 0), rntcsv::SeparatorParams(',', false, false));
+    rntcsv::document doc("", rntcsv::label_parameters(0, 0), rntcsv::separator_parameters(',', false, false));
 
     doc.InsertColumn(0, std::vector<int>({ 4, 9, 16, 25 }), "B");
     doc.InsertColumn(0, std::vector<int>({ 2, 3, 4, 5 }), "A");

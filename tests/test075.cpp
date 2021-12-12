@@ -19,7 +19,7 @@ int main()
 
   try
   {
-    rntcsv::Document doc("", rntcsv::LabelParams(0, 0), rntcsv::SeparatorParams(',', false, false));
+    rntcsv::document doc("", rntcsv::label_parameters(0, 0), rntcsv::separator_parameters(',', false, false));
 
     doc.SetColumnName(0, "A");
     doc.SetColumnName(1, "B");

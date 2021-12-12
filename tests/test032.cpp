@@ -18,7 +18,7 @@ int main()
 
   try
   {
-    rntcsv::Document doc("", rntcsv::LabelParams(-1, -1), rntcsv::SeparatorParams(',', false, false));
+    rntcsv::document doc("", rntcsv::label_parameters(-1, -1), rntcsv::separator_parameters(',', false, false));
 
     doc.SetColumn<int>(0, std::vector<int>({ 2, 3 }));
     doc.SetColumn<int>(1, std::vector<int>({ 4, 9, 16, 25 }));

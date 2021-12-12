@@ -1,11 +1,11 @@
-## class rntcsv::SeparatorParams
+## class rntcsv::separator_parameters
 
 Datastructure holding parameters controlling how the CSV data fields are separated.  
 
 ---
 
 ```c++
-SeparatorParams (const char pSeparator = ',', const bool pTrim = false, const bool pHasCR = sPlatformHasCR, const bool pQuotedLinebreaks = false, const bool pAutoQuote = true)
+separator_parameters (const char pSeparator = ',', const bool pTrim = false, const bool pHasCR = sPlatformHasCR, const bool pQuotedLinebreaks = false, const bool pAutoQuote = true)
 ```
 Constructor. 
 

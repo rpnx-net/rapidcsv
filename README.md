@@ -34,7 +34,7 @@ vector of floats.
 
     int main()
     {
-      rntcsv::Document doc("examples/colhdr.csv");
+      rntcsv::document doc("examples/colhdr.csv");
 
       std::vector<float> col = doc.GetColumn<float>("Close");
       std::cout << "Read " << col.size() << " values." << std::endl;
@@ -75,7 +75,7 @@ Reading a File with Column and Row Headers
 By default rntcsv treats the first row as column headers, and the first
 column is treated as data. This allows accessing columns using their labels,
 but not rows or cells (only using indices). In order to treat the first column
-as row headers one needs to use LabelParams and set pRowNameIdx to 0.
+as row headers one needs to use label_parameters and set pRowNameIdx to 0.
 
 ### Column and Row Headers
 [colrowhdr.csv](examples/colrowhdr.csv) content:
@@ -96,7 +96,7 @@ as row headers one needs to use LabelParams and set pRowNameIdx to 0.
 
     int main()
     {
-      rntcsv::Document doc("examples/colrowhdr.csv", rntcsv::LabelParams(0, 0));
+      rntcsv::document doc("examples/colrowhdr.csv", rntcsv::label_parameters(0, 0));
 
       std::vector<float> close = doc.GetRow<float>("2017-02-22");
       std::cout << "Read " << close.size() << " values." << std::endl;
@@ -124,7 +124,7 @@ as row headers one needs to use LabelParams and set pRowNameIdx to 0.
 
     int main()
     {
-      rntcsv::Document doc("examples/rowhdr.csv", rntcsv::LabelParams(-1, 0));
+      rntcsv::document doc("examples/rowhdr.csv", rntcsv::label_parameters(-1, 0));
 
       std::vector<std::string> row = doc.GetRow<std::string>("2017-02-22");
       std::cout << "Read " << row.size() << " values." << std::endl;
@@ -149,7 +149,7 @@ as row headers one needs to use LabelParams and set pRowNameIdx to 0.
 
     int main()
     {
-      rntcsv::Document doc("examples/nohdr.csv", rntcsv::LabelParams(-1, -1));
+      rntcsv::document doc("examples/nohdr.csv", rntcsv::label_parameters(-1, -1));
 
       std::vector<float> close = doc.GetColumn<float>(5);
       std::cout << "Read " << close.size() << " values." << std::endl;
@@ -162,7 +162,7 @@ as row headers one needs to use LabelParams and set pRowNameIdx to 0.
 Reading a File with Custom Separator
 ------------------------------------
 For reading of files with custom separator (i.e. not comma), one need to
-specify the SeparatorParams argument. The following example reads a file using
+specify the separator_parameters argument. The following example reads a file using
 semi-colon as separator.
 
 [semi.csv](examples/semi.csv) content:
@@ -183,8 +183,8 @@ semi-colon as separator.
 
     int main()
     {
-      rntcsv::Document doc("examples/semi.csv", rntcsv::LabelParams(0, 0),
-                             rntcsv::SeparatorParams(';'));
+      rntcsv::document doc("examples/semi.csv", rntcsv::label_parameters(0, 0),
+                             rntcsv::separator_parameters(';'));
 
       std::vector<float> close = doc.GetColumn<float>("Close");
       std::cout << "Read " << close.size() << " values." << std::endl;
@@ -196,7 +196,7 @@ semi-colon as separator.
 
 Supported Get/Set Data Types
 ----------------------------
-The internal cell representation in the Document class is using std::string
+The internal cell representation in the document class is using std::string
 and when other types are requested, standard conversion routines are used.
 All standard conversions are relatively straight-forward, with the
 exception of `char` for which rntcsv interprets the cell's (first) byte
@@ -220,7 +220,7 @@ as a character. The following example illustrates the supported data types.
 
     int main()
     {
-      rntcsv::Document doc("examples/colrowhdr.csv", rntcsv::LabelParams(0, 0));
+      rntcsv::document doc("examples/colrowhdr.csv", rntcsv::label_parameters(0, 0));
 
       std::cout << doc.GetCell<std::string>("Volume", "2017-02-22") << std::endl;
       std::cout << doc.GetCell<int>("Volume", "2017-02-22") << std::endl;
@@ -239,11 +239,11 @@ as a character. The following example illustrates the supported data types.
 
 Global Custom Data Type Conversion
 ----------------------------------
-One may override conversion routines (or add new ones) by implementing ToVal()
-and/or ToStr(). Below is an example overriding int conversion, to instead provide
+One may override conversion routines (or add new ones) by implementing to_value()
+and/or to_string(). Below is an example overriding int conversion, to instead provide
 two decimal fixed-point numbers. Also see 
 [tests/test035.cpp](https://github.com/d99kris/rntcsv/blob/master/tests/test035.cpp)
-for a test overriding ToVal() and ToStr().
+for a test overriding to_value() and to_string().
 
 [ex008.cpp](examples/ex008.cpp) content:
 ```cpp
@@ -254,7 +254,7 @@ for a test overriding ToVal() and ToStr().
     namespace rntcsv
     {
       template<>
-      void Converter<int>::ToVal(const std::string& pStr, int& pVal) const
+      void converter<int>::to_value(const std::string& pStr, int& pVal) const
       {
         pVal = static_cast<int>(roundf(100.0f * std::stof(pStr)));
       }
@@ -262,7 +262,7 @@ for a test overriding ToVal() and ToStr().
 
     int main()
     {
-      rntcsv::Document doc("examples/colrowhdr.csv", rntcsv::LabelParams(0, 0));
+      rntcsv::document doc("examples/colrowhdr.csv", rntcsv::label_parameters(0, 0));
 
       std::vector<int> close = doc.GetColumn<int>("Close");
       std::cout << "close[0]  = " << close[0] << std::endl;
@@ -300,7 +300,7 @@ override usage can be found in the test
 
     int main()
     {
-      rntcsv::Document doc("examples/colrowhdr.csv", rntcsv::LabelParams(0, 0));
+      rntcsv::document doc("examples/colrowhdr.csv", rntcsv::label_parameters(0, 0));
 
       std::cout << "regular         = " << doc.GetCell<int>("Close", "2017-02-21") << "\n";
       std::cout << "fixpointfunc    = " << doc.GetCell<int>("Close", "2017-02-21", ConvFixPoint) << "\n";
@@ -314,7 +314,7 @@ override usage can be found in the test
 
 Reading CSV Data from a Stream or String
 ----------------------------------------
-In addition to specifying a filename, rntcsv supports constructing a Document
+In addition to specifying a filename, rntcsv supports constructing a document
 from a stream and, indirectly through stringstream, from a string. Here is a
 simple example reading CSV data from a string:
 
@@ -336,7 +336,7 @@ simple example reading CSV data from a string:
         ;
 
       std::stringstream sstream(csv);
-      rntcsv::Document doc(sstream, rntcsv::LabelParams(0, 0));
+      rntcsv::document doc(sstream, rntcsv::label_parameters(0, 0));
 
       std::vector<float> close = doc.GetColumn<float>("Close");
       std::cout << "Read " << close.size() << " values." << std::endl;
@@ -360,8 +360,8 @@ std::numeric_limits<long double>::signaling_NaN() for float types, and 0 for
 integer types. Example:
 
 ```cpp
-    rntcsv::Document doc("file.csv", rntcsv::LabelParams(),
-                           rntcsv::SeparatorParams(),
+    rntcsv::document doc("file.csv", rntcsv::label_parameters(),
+                           rntcsv::separator_parameters(),
                            rntcsv::converter_parameters(true));
 ```
 
@@ -372,7 +372,7 @@ the column and row names. To check whether a particular column name exists
 one can for example do:
 
 ```cpp
-    rntcsv::Document doc("file.csv");
+    rntcsv::document doc("file.csv");
     std::vector<std::string> columnNames = doc.GetColumnNames();
     bool columnExists =
       (std::find(columnNames.begin(), columnNames.end(), "A") != columnNames.end());
@@ -382,11 +382,11 @@ Handling Quoted Cells
 ---------------------
 By default rntcsv automatically dequotes quoted cells (i.e. removes the encapsulating
 `"` characters from `"example quoted cell"`). This functionality may be disabled by
-passing `pAutoQuote = false` in `SeparatorParams`, example:
+passing `pAutoQuote = false` in `separator_parameters`, example:
 
 ```cpp
-    rntcsv::Document doc("file.csv", rntcsv::LabelParams(),
-                           rntcsv::SeparatorParams(',' /* pSeparator */, 
+    rntcsv::document doc("file.csv", rntcsv::label_parameters(),
+                           rntcsv::separator_parameters(',' /* pSeparator */, 
                                                      false /* pTrim */, 
                                                      rntcsv::sPlatformHasCR /* pHasCR */,
                                                      false /* pQuotedLinebreaks */, 
@@ -399,18 +399,18 @@ Rapidcsv reads all lines by default, but may be called to ignore comment lines
 starting with a specific character, example:
 
 ```cpp
-    rntcsv::Document doc("file.csv", rntcsv::LabelParams(), rntcsv::SeparatorParams(),
+    rntcsv::document doc("file.csv", rntcsv::label_parameters(), rntcsv::separator_parameters(),
                            rntcsv::converter_parameters(),
-                           rntcsv::LineReaderParams(true /* pSkipCommentLines */,
+                           rntcsv::line_reader_parameters(true /* pSkipCommentLines */,
                                                       '#' /* pCommentPrefix */));
 ```
 
-Using LineReaderParams it is also possible to skip empty lines, example:
+Using line_reader_parameters it is also possible to skip empty lines, example:
 
 ```cpp
-    rntcsv::Document doc("file.csv", rntcsv::LabelParams(), rntcsv::SeparatorParams(),
+    rntcsv::document doc("file.csv", rntcsv::label_parameters(), rntcsv::separator_parameters(),
                            rntcsv::converter_parameters(),
-                           rntcsv::LineReaderParams(false /* pSkipCommentLines */,
+                           rntcsv::line_reader_parameters(false /* pSkipCommentLines */,
                                                       '#' /* pCommentPrefix */,
                                                       true /* pSkipEmptyLines */));
 ```
@@ -434,13 +434,13 @@ particular its [CMakeLists.txt](examples/cmake-fetchcontent/CMakeLists.txt).
 API Documentation
 =================
 The following classes makes up the Rapidcsv interface:
- - [class rntcsv::Document](doc/rapidcsv_Document.md)
- - [class rntcsv::LabelParams](doc/rapidcsv_LabelParams.md)
- - [class rntcsv::SeparatorParams](doc/rapidcsv_SeparatorParams.md)
+ - [class rntcsv::document](doc/rapidcsv_Document.md)
+ - [class rntcsv::label_parameters](doc/rapidcsv_LabelParams.md)
+ - [class rntcsv::separator_parameters](doc/rapidcsv_SeparatorParams.md)
  - [class rntcsv::converter_parameters](doc/rapidcsv_ConverterParams.md)
- - [class rntcsv::LineReaderParams](doc/rapidcsv_LineReaderParams.md)
+ - [class rntcsv::line_reader_parameters](doc/rapidcsv_LineReaderParams.md)
  - [class rntcsv::no_converter](doc/rapidcsv_no_converter.md)
- - [class rntcsv::Converter< T >](doc/rapidcsv_Converter.md)
+ - [class rntcsv::converter< T >](doc/rapidcsv_Converter.md)
 
 Technical Details
 =================

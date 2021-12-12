@@ -21,7 +21,7 @@ int main()
   try
   {
     // to file stream
-    rntcsv::Document doc(path, rntcsv::LabelParams(0, 0));
+    rntcsv::document doc(path, rntcsv::label_parameters(0, 0));
     std::ofstream ostream;
     ostream.exceptions(std::ifstream::failbit | std::ifstream::badbit);
     ostream.open(outpath, std::ios::binary | std::ios::ate);

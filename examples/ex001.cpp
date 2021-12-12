@@ -11,7 +11,7 @@ exit ${RV}
 
 int main()
 {
-  rntcsv::Document doc("examples/colhdr.csv");
+  rntcsv::document doc("examples/colhdr.csv");
 
   std::vector<float> col = doc.GetColumn<float>("Close");
   std::cout << "Read " << col.size() << " values." << std::endl;

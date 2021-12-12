@@ -1,4 +1,4 @@
-// test076.cpp - Load from stream
+// test076.cpp - assign_from_file from stream
 
 #include <rntcsv.h>
 #include "unittest.h"
@@ -22,8 +22,8 @@ int main()
     std::ifstream fstream;
     fstream.exceptions(std::ifstream::failbit | std::ifstream::badbit);
     fstream.open(path, std::ios::binary | std::ios::ate);
-    rntcsv::Document doc1;
-    doc1.Load(fstream, rntcsv::LabelParams(0, 0));
+    rntcsv::document doc1;
+    doc1.Load(fstream, rntcsv::label_parameters(0, 0));
     fstream.close();
 
     unittest::ExpectEqual(int, doc1.GetCell<int>(0, 0), 3);
@@ -36,8 +36,8 @@ int main()
 
     // stream from string
     std::istringstream sstream(csv);
-    rntcsv::Document doc2("");
-    doc2.Load(sstream, rntcsv::LabelParams(0, 0));
+    rntcsv::document doc2("");
+    doc2.Load(sstream, rntcsv::label_parameters(0, 0));
 
     unittest::ExpectEqual(int, doc2.GetCell<int>(0, 0), 3);
     unittest::ExpectEqual(int, doc2.GetCell<int>(1, 0), 9);

@@ -18,7 +18,7 @@ int main()
 
   try
   {
-    rntcsv::Document doc(path, rntcsv::LabelParams(1));
+    rntcsv::document doc(path, rntcsv::label_parameters(1));
 
     unittest::ExpectEqual(ssize_t, doc.GetColumnIdx("-"), -1);
     unittest::ExpectEqual(ssize_t, doc.GetColumnIdx("A"), -1);

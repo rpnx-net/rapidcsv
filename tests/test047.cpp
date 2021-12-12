@@ -18,7 +18,7 @@ int main()
 
   try
   {
-    rntcsv::Document doc(path, rntcsv::LabelParams(0, 0));
+    rntcsv::document doc(path, rntcsv::label_parameters(0, 0));
 
     ExpectException(doc.GetCell<int>(0, 0), std::invalid_argument);
     ExpectException(doc.GetCell<int>(1, 0), std::invalid_argument);

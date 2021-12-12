@@ -18,7 +18,7 @@ int main()
 
   try
   {
-    rntcsv::Document doc(path, rntcsv::LabelParams(0, 0), rntcsv::SeparatorParams(',', true));
+    rntcsv::document doc(path, rntcsv::label_parameters(0, 0), rntcsv::separator_parameters(',', true));
     unittest::ExpectEqual(std::string, doc.GetCell<std::string>("A", "1"), "3");
     unittest::ExpectEqual(std::string, doc.GetCell<std::string>("B", "1"), "9");
     unittest::ExpectEqual(std::string, doc.GetCell<std::string>("C", "1"), "81");

@@ -1,11 +1,11 @@
-## class rntcsv::LabelParams
+## class rntcsv::label_parameters
 
 Datastructure holding parameters controlling which row and column should be treated as labels.  
 
 ---
 
 ```c++
-LabelParams (const int pColumnNameIdx = 0, const int pRowNameIdx = \-1)
+label_parameters (const int pColumnNameIdx = 0, const int pRowNameIdx = \-1)
 ```
 Constructor. 
 

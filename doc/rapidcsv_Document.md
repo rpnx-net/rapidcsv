@@ -1,16 +1,16 @@
-## class rntcsv::Document
+## class rntcsv::document
 
 Class representing a CSV document.  
 
 ---
 
 ```c++
-Document (const std::string & pPath = std::string(), const LabelParams & pLabelParams = LabelParams(), const SeparatorParams & pSeparatorParams = SeparatorParams(), const converter_parameters & pConverterParams = converter_parameters(), const LineReaderParams & pLineReaderParams = LineReaderParams())
+document (const std::string & pPath = std::string(), const label_parameters & pLabelParams = label_parameters(), const separator_parameters & pSeparatorParams = separator_parameters(), const converter_parameters & pConverterParams = converter_parameters(), const line_reader_parameters & pLineReaderParams = line_reader_parameters())
 ```
 Constructor. 
 
 **Parameters**
-- `pPath` specifies the path of an existing CSV-file to populate the Document data with. 
+- `pPath` specifies the path of an existing CSV-file to populate the document data with. 
 - `pLabelParams` specifies which row and column should be treated as labels. 
 - `pSeparatorParams` specifies which field and row separators should be used. 
 - `pConverterParams` specifies how invalid numbers (including empty strings) should be handled. 
@@ -19,7 +19,7 @@ Constructor.
 ---
 
 ```c++
-Document (std::istream & pStream, const LabelParams & pLabelParams = LabelParams(), const SeparatorParams & pSeparatorParams = SeparatorParams(), const converter_parameters & pConverterParams = converter_parameters(), const LineReaderParams & pLineReaderParams = LineReaderParams())
+document (std::istream & pStream, const label_parameters & pLabelParams = label_parameters(), const separator_parameters & pSeparatorParams = separator_parameters(), const converter_parameters & pConverterParams = converter_parameters(), const line_reader_parameters & pLineReaderParams = line_reader_parameters())
 ```
 Constructor. 
 
@@ -33,9 +33,9 @@ Constructor.
 ---
 
 ```c++
-void Clear ()
+void clear ()
 ```
-Clears loaded Document data. 
+Clears loaded document data. 
 
 ---
 
@@ -54,7 +54,7 @@ Get cell by index.
 ---
 
 ```c++
-template<typename T > T GetCell (const size_t pColumnIdx, const size_t pRowIdx, ConvFunc< T > pToVal)
+template<typename T > T GetCell (const size_t pColumnIdx, const size_t pRowIdx, conversion_func< T > pToVal)
 ```
 Get cell by index. 
 
@@ -83,7 +83,7 @@ Get cell by name.
 ---
 
 ```c++
-template<typename T > T GetCell (const std::string & pColumnName, const std::string & pRowName, ConvFunc< T > pToVal)
+template<typename T > T GetCell (const std::string & pColumnName, const std::string & pRowName, conversion_func< T > pToVal)
 ```
 Get cell by name. 
 
@@ -112,7 +112,7 @@ Get cell by column name and row index.
 ---
 
 ```c++
-template<typename T > T GetCell (const std::string & pColumnName, const size_t pRowIdx, ConvFunc< T > pToVal)
+template<typename T > T GetCell (const std::string & pColumnName, const size_t pRowIdx, conversion_func< T > pToVal)
 ```
 Get cell by column name and row index. 
 
@@ -141,7 +141,7 @@ Get cell by column index and row name.
 ---
 
 ```c++
-template<typename T > T GetCell (const size_t pColumnIdx, const std::string & pRowName, ConvFunc< T > pToVal)
+template<typename T > T GetCell (const size_t pColumnIdx, const std::string & pRowName, conversion_func< T > pToVal)
 ```
 Get cell by column index and row name. 
 
@@ -169,7 +169,7 @@ Get column by index.
 ---
 
 ```c++
-template<typename T > std::vector<T> GetColumn (const size_t pColumnIdx, ConvFunc< T > pToVal)
+template<typename T > std::vector<T> GetColumn (const size_t pColumnIdx, conversion_func< T > pToVal)
 ```
 Get column by index. 
 
@@ -196,7 +196,7 @@ Get column by name.
 ---
 
 ```c++
-template<typename T > std::vector<T> GetColumn (const std::string & pColumnName, ConvFunc< T > pToVal)
+template<typename T > std::vector<T> GetColumn (const std::string & pColumnName, conversion_func< T > pToVal)
 ```
 Get column by name. 
 
@@ -269,7 +269,7 @@ Get row by index.
 ---
 
 ```c++
-template<typename T > std::vector<T> GetRow (const size_t pRowIdx, ConvFunc< T > pToVal)
+template<typename T > std::vector<T> GetRow (const size_t pRowIdx, conversion_func< T > pToVal)
 ```
 Get row by index. 
 
@@ -296,7 +296,7 @@ Get row by name.
 ---
 
 ```c++
-template<typename T > std::vector<T> GetRow (const std::string & pRowName, ConvFunc< T > pToVal)
+template<typename T > std::vector<T> GetRow (const std::string & pRowName, conversion_func< T > pToVal)
 ```
 Get row by name. 
 
@@ -380,12 +380,12 @@ Insert row at specified index.
 ---
 
 ```c++
-void Load (const std::string & pPath, const LabelParams & pLabelParams = LabelParams(), const SeparatorParams & pSeparatorParams = SeparatorParams(), const converter_parameters & pConverterParams = converter_parameters(), const LineReaderParams & pLineReaderParams = LineReaderParams())
+void assign_from_file (const std::string & pPath, const label_parameters & pLabelParams = label_parameters(), const separator_parameters & pSeparatorParams = separator_parameters(), const converter_parameters & pConverterParams = converter_parameters(), const line_reader_parameters & pLineReaderParams = line_reader_parameters())
 ```
-Read Document data from file. 
+Read document data from file. 
 
 **Parameters**
-- `pPath` specifies the path of an existing CSV-file to populate the Document data with. 
+- `pPath` specifies the path of an existing CSV-file to populate the document data with. 
 - `pLabelParams` specifies which row and column should be treated as labels. 
 - `pSeparatorParams` specifies which field and row separators should be used. 
 - `pConverterParams` specifies how invalid numbers (including empty strings) should be handled. 
@@ -394,9 +394,9 @@ Read Document data from file.
 ---
 
 ```c++
-void Load (std::istream & pStream, const LabelParams & pLabelParams = LabelParams(), const SeparatorParams & pSeparatorParams = SeparatorParams(), const converter_parameters & pConverterParams = converter_parameters(), const LineReaderParams & pLineReaderParams = LineReaderParams())
+void assign_from_file (std::istream & pStream, const label_parameters & pLabelParams = label_parameters(), const separator_parameters & pSeparatorParams = separator_parameters(), const converter_parameters & pConverterParams = converter_parameters(), const line_reader_parameters & pLineReaderParams = line_reader_parameters())
 ```
-Read Document data from stream. 
+Read document data from stream. 
 
 **Parameters**
 - `pStream` specifies an input stream to read CSV data from. 
@@ -450,17 +450,17 @@ Remove row by name.
 ```c++
 void Save (const std::string & pPath = std::string())
 ```
-Write Document data to file. 
+Write document data to file. 
 
 **Parameters**
-- `pPath` optionally specifies the path where the CSV-file will be created (if not specified, the original path provided when creating or loading the Document data will be used). 
+- `pPath` optionally specifies the path where the CSV-file will be created (if not specified, the original path provided when creating or loading the document data will be used). 
 
 ---
 
 ```c++
 void Save (std::ostream & pStream)
 ```
-Write Document data to stream. 
+Write document data to stream. 
 
 **Parameters**
 - `pStream` specifies an output stream to write the data to. 

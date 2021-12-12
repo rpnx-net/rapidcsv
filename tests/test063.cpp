@@ -36,9 +36,9 @@ int main()
 
   try
   {
-    rntcsv::Document doc(path, rntcsv::LabelParams(0, 0));
+    rntcsv::document doc(path, rntcsv::label_parameters(0, 0));
 
-    // ToVal
+    // to_value
     unittest::ExpectEqual(int, doc.GetCell<int>(0, 0, ToVal), 100);
     unittest::ExpectEqual(int, doc.GetCell<int>(1, "1", ToVal), 1000);
     unittest::ExpectEqual(int, doc.GetCell<int>("A", 0, ToVal), 100);

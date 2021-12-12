@@ -1,6 +1,6 @@
 ## class rntcsv::no_converter
 
-Exception thrown when attempting to access Document data in a datatype which is not supported by the Converter class.  
+Exception thrown when attempting to access document data in a datatype which is not supported by the converter class.  
 
 ---
 

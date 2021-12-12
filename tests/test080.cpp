@@ -1,4 +1,4 @@
-// test080.cpp - test Clear
+// test080.cpp - test clear
 
 #include <rntcsv.h>
 #include "unittest.h"
@@ -18,10 +18,10 @@ int main()
 
   try
   {
-    rntcsv::Document doc(path);
+    rntcsv::document doc(path);
     unittest::ExpectEqual(size_t, doc.GetRowCount(), 2);
 
-    doc.Clear();
+      doc.clear();
     unittest::ExpectEqual(size_t, doc.GetRowCount(), 0);
   }
   catch (const std::exception& ex)

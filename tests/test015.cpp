@@ -24,7 +24,7 @@ int main()
 
   try
   {
-    rntcsv::Document doc(path);
+    rntcsv::document doc(path);
 
     doc.SetColumn<int>(0, std::vector<int>({ 3, 4 }));
     doc.SetColumn<int>("B", std::vector<int>({ 9, 16 }));

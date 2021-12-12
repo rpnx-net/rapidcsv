@@ -24,10 +24,8 @@
 #include <algorithm>
 #include <cassert>
 #include <cmath>
-#ifdef HAS_CODECVT
 #include <codecvt>
 #include <locale>
-#endif
 #include <fstream>
 #include <functional>
 #include <iostream>
@@ -91,8 +89,8 @@ namespace rntcsv
   };
 
   /**
-   * @brief     Exception thrown when attempting to access Document data in a datatype which
-   *            is not supported by the Converter class.
+   * @brief     Exception thrown when attempting to access document data in a datatype which
+   *            is not supported by the converter class.
    */
   class no_converter : public std::exception
   {
@@ -112,7 +110,7 @@ namespace rntcsv
    *            specialization for custom datatype conversions.
    */
   template<typename T>
-  class Converter
+  class converter
   {
   public:
     /**
@@ -120,8 +118,8 @@ namespace rntcsv
      * @param   pConverterParams      specifies how conversion of non-numerical values to
      *                                numerical datatype shall be handled.
      */
-    Converter(const converter_parameters& pConverterParams)
-      : mConverterParams(pConverterParams)
+    converter(const converter_parameters& pConverterParams)
+      : m_converter_parameters(pConverterParams)
     {
     }
 
@@ -130,7 +128,7 @@ namespace rntcsv
      * @param   pVal                  numerical value
      * @param   pStr                  output string
      */
-    void ToStr(const T& pVal, std::string& pStr) const
+    void to_string(const T& pVal, std::string& pStr) const
     {
       if (typeid(T) == typeid(int) ||
           typeid(T) == typeid(long) ||
@@ -158,7 +156,7 @@ namespace rntcsv
      * @param   pVal                  numerical value
      * @param   pStr                  output string
      */
-    void ToVal(const std::string& pStr, T& pVal) const
+    void to_value(const std::string& pStr, T& pVal) const
     {
       try
       {
@@ -195,13 +193,13 @@ namespace rntcsv
       }
       catch (...)
       {
-        if (!mConverterParams.mHasDefaultConverter)
+        if (!m_converter_parameters.mHasDefaultConverter)
         {
           throw;
         }
         else
         {
-          pVal = static_cast<T>(mConverterParams.mDefaultInteger);
+          pVal = static_cast<T>(m_converter_parameters.mDefaultInteger);
           return;
         }
       }
@@ -226,13 +224,13 @@ namespace rntcsv
       }
       catch (...)
       {
-        if (!mConverterParams.mHasDefaultConverter)
+        if (!m_converter_parameters.mHasDefaultConverter)
         {
           throw;
         }
         else
         {
-          pVal = static_cast<T>(mConverterParams.mDefaultFloat);
+          pVal = static_cast<T>(m_converter_parameters.mDefaultFloat);
           return;
         }
       }
@@ -249,7 +247,7 @@ namespace rntcsv
     }
 
   private:
-    const converter_parameters& mConverterParams;
+    const converter_parameters& m_converter_parameters;
   };
 
   /**
@@ -258,7 +256,7 @@ namespace rntcsv
    * @param     pStr                  string
    */
   template<>
-  inline void Converter<std::string>::ToStr(const std::string& pVal, std::string& pStr) const
+  inline void converter<std::string>::to_string(const std::string& pVal, std::string& pStr) const
   {
     pStr = pVal;
   }
@@ -269,19 +267,19 @@ namespace rntcsv
    * @param     pStr                  string
    */
   template<>
-  inline void Converter<std::string>::ToVal(const std::string& pStr, std::string& pVal) const
+  inline void converter<std::string>::to_value(const std::string& pStr, std::string& pVal) const
   {
     pVal = pStr;
   }
 
   template<typename T>
-  using ConvFunc = std::function<void (const std::string & pStr, T & pVal)>;
+  using conversion_func = std::function<void (const std::string & pStr, T & pVal)>;
 
   /**
    * @brief     Datastructure holding parameters controlling which row and column should be
    *            treated as labels.
    */
-  struct LabelParams
+  struct label_parameters
   {
     /**
      * @brief   Constructor
@@ -292,7 +290,7 @@ namespace rntcsv
      *                                it to -1 prevents row lookup by label name, and gives access
      *                                to all columns as document data. Default: -1
      */
-    explicit LabelParams(const int pColumnNameIdx = 0, const int pRowNameIdx = -1)
+    explicit label_parameters(const int pColumnNameIdx = 0, const int pRowNameIdx = -1)
       : mColumnNameIdx(pColumnNameIdx)
       , mRowNameIdx(pRowNameIdx)
     {
@@ -312,7 +310,7 @@ namespace rntcsv
   /**
    * @brief     Datastructure holding parameters controlling how the CSV data fields are separated.
    */
-  struct SeparatorParams
+  struct separator_parameters
   {
     /**
      * @brief   Constructor
@@ -326,9 +324,9 @@ namespace rntcsv
      * @param   pAutoQuote            specifies whether to automatically dequote data during read, and add
      *                                quotes during write (default true).
      */
-    explicit SeparatorParams(const char pSeparator = ',', const bool pTrim = false,
-                             const bool pHasCR = sPlatformHasCR, const bool pQuotedLinebreaks = false,
-                             const bool pAutoQuote = true)
+    explicit separator_parameters(const char pSeparator = ',', const bool pTrim = false,
+                                  const bool pHasCR = sPlatformHasCR, const bool pQuotedLinebreaks = false,
+                                  const bool pAutoQuote = true)
       : mSeparator(pSeparator)
       , mTrim(pTrim)
       , mHasCR(pHasCR)
@@ -367,7 +365,7 @@ namespace rntcsv
    * @brief     Datastructure holding parameters controlling how special line formats should be
    *            treated.
    */
-  struct LineReaderParams
+  struct line_reader_parameters
   {
     /**
      * @brief   Constructor
@@ -377,9 +375,9 @@ namespace rntcsv
      *                                line. Default: #
      * @param   pSkipEmptyLines       specifies whether to skip empty lines. Default: false
      */
-    explicit LineReaderParams(const bool pSkipCommentLines = false,
-                              const char pCommentPrefix = '#',
-                              const bool pSkipEmptyLines = false)
+    explicit line_reader_parameters(const bool pSkipCommentLines = false,
+                                    const char pCommentPrefix = '#',
+                                    const bool pSkipEmptyLines = false)
       : mSkipCommentLines(pSkipCommentLines)
       , mCommentPrefix(pCommentPrefix)
       , mSkipEmptyLines(pSkipEmptyLines)
@@ -405,12 +403,12 @@ namespace rntcsv
   /**
    * @brief     Class representing a CSV document.
    */
-  class Document
+  class document
   {
   public:
     /**
      * @brief   Constructor
-     * @param   pPath                 specifies the path of an existing CSV-file to populate the Document
+     * @param   pPath                 specifies the path of an existing CSV-file to populate the document
      *                                data with.
      * @param   pLabelParams          specifies which row and column should be treated as labels.
      * @param   pSeparatorParams      specifies which field and row separators should be used.
@@ -418,11 +416,11 @@ namespace rntcsv
      *                                handled.
      * @param   pLineReaderParams     specifies how special line formats should be treated.
      */
-    explicit Document(const std::string& pPath = std::string(),
-                      const LabelParams& pLabelParams = LabelParams(),
-                      const SeparatorParams& pSeparatorParams = SeparatorParams(),
+    explicit document(const std::string& pPath = std::string(),
+                      const label_parameters& pLabelParams = label_parameters(),
+                      const separator_parameters& pSeparatorParams = separator_parameters(),
                       const converter_parameters& pConverterParams = converter_parameters(),
-                      const LineReaderParams& pLineReaderParams = LineReaderParams())
+                      const line_reader_parameters& pLineReaderParams = line_reader_parameters())
       : mPath(pPath)
       , mLabelParams(pLabelParams)
       , mSeparatorParams(pSeparatorParams)
@@ -444,11 +442,11 @@ namespace rntcsv
      *                                handled.
      * @param   pLineReaderParams     specifies how special line formats should be treated.
      */
-    explicit Document(std::istream& pStream,
-                      const LabelParams& pLabelParams = LabelParams(),
-                      const SeparatorParams& pSeparatorParams = SeparatorParams(),
+    explicit document(std::istream& pStream,
+                      const label_parameters& pLabelParams = label_parameters(),
+                      const separator_parameters& pSeparatorParams = separator_parameters(),
                       const converter_parameters& pConverterParams = converter_parameters(),
-                      const LineReaderParams& pLineReaderParams = LineReaderParams())
+                      const line_reader_parameters& pLineReaderParams = line_reader_parameters())
       : mPath()
       , mLabelParams(pLabelParams)
       , mSeparatorParams(pSeparatorParams)
@@ -459,8 +457,8 @@ namespace rntcsv
     }
 
     /**
-     * @brief   Read Document data from file.
-     * @param   pPath                 specifies the path of an existing CSV-file to populate the Document
+     * @brief   Read document data from file.
+     * @param   pPath                 specifies the path of an existing CSV-file to populate the document
      *                                data with.
      * @param   pLabelParams          specifies which row and column should be treated as labels.
      * @param   pSeparatorParams      specifies which field and row separators should be used.
@@ -468,11 +466,11 @@ namespace rntcsv
      *                                handled.
      * @param   pLineReaderParams     specifies how special line formats should be treated.
      */
-    void Load(const std::string& pPath,
-              const LabelParams& pLabelParams = LabelParams(),
-              const SeparatorParams& pSeparatorParams = SeparatorParams(),
-              const converter_parameters& pConverterParams = converter_parameters(),
-              const LineReaderParams& pLineReaderParams = LineReaderParams())
+    void assign_from_file(const std::string& pPath,
+                          const label_parameters& pLabelParams = label_parameters(),
+                          const separator_parameters& pSeparatorParams = separator_parameters(),
+                          const converter_parameters& pConverterParams = converter_parameters(),
+                          const line_reader_parameters& pLineReaderParams = line_reader_parameters())
     {
       mPath = pPath;
       mLabelParams = pLabelParams;
@@ -483,7 +481,7 @@ namespace rntcsv
     }
 
     /**
-     * @brief   Read Document data from stream.
+     * @brief   Read document data from stream.
      * @param   pStream               specifies an input stream to read CSV data from.
      * @param   pLabelParams          specifies which row and column should be treated as labels.
      * @param   pSeparatorParams      specifies which field and row separators should be used.
@@ -492,10 +490,10 @@ namespace rntcsv
      * @param   pLineReaderParams     specifies how special line formats should be treated.
      */
     void Load(std::istream& pStream,
-              const LabelParams& pLabelParams = LabelParams(),
-              const SeparatorParams& pSeparatorParams = SeparatorParams(),
+              const label_parameters& pLabelParams = label_parameters(),
+              const separator_parameters& pSeparatorParams = separator_parameters(),
               const converter_parameters& pConverterParams = converter_parameters(),
-              const LineReaderParams& pLineReaderParams = LineReaderParams())
+              const line_reader_parameters& pLineReaderParams = line_reader_parameters())
     {
       mPath = "";
       mLabelParams = pLabelParams;
@@ -506,10 +504,10 @@ namespace rntcsv
     }
 
     /**
-     * @brief   Write Document data to file.
+     * @brief   Write document data to file.
      * @param   pPath                 optionally specifies the path where the CSV-file will be created
      *                                (if not specified, the original path provided when creating or
-     *                                loading the Document data will be used).
+     *                                loading the document data will be used).
      */
     void Save(const std::string& pPath = std::string())
     {
@@ -521,7 +519,7 @@ namespace rntcsv
     }
 
     /**
-     * @brief   Write Document data to stream.
+     * @brief   Write document data to stream.
      * @param   pStream               specifies an output stream to write the data to.
      */
     void Save(std::ostream& pStream)
@@ -530,18 +528,16 @@ namespace rntcsv
     }
 
     /**
-     * @brief   Clears loaded Document data.
+     * @brief   Clears loaded document data.
      *
      */
-    void Clear()
+    void clear()
     {
       mData.clear();
       mColumnNames.clear();
       mRowNames.clear();
-#ifdef HAS_CODECVT
       mIsUtf16 = false;
       mIsLE = false;
-#endif
     }
 
     /**
@@ -571,7 +567,7 @@ namespace rntcsv
     {
       const ssize_t columnIdx = pColumnIdx + (mLabelParams.mRowNameIdx + 1);
       std::vector<T> column;
-      Converter<T> converter(mConverterParams);
+      converter<T> converter(mConverterParams);
       for (auto itRow = mData.begin(); itRow != mData.end(); ++itRow)
       {
         if (std::distance(mData.begin(), itRow) > mLabelParams.mColumnNameIdx)
@@ -579,7 +575,7 @@ namespace rntcsv
           if (columnIdx < static_cast<ssize_t>(itRow->size()))
           {
             T val;
-            converter.ToVal(itRow->at(columnIdx), val);
+              converter.to_value(itRow->at(columnIdx), val);
             column.push_back(val);
           }
           else
@@ -604,7 +600,7 @@ namespace rntcsv
      * @returns vector of column data.
      */
     template<typename T>
-    std::vector<T> GetColumn(const size_t pColumnIdx, ConvFunc<T> pToVal) const
+    std::vector<T> GetColumn(const size_t pColumnIdx, conversion_func<T> pToVal) const
     {
       const ssize_t columnIdx = pColumnIdx + (mLabelParams.mRowNameIdx + 1);
       std::vector<T> column;
@@ -643,7 +639,7 @@ namespace rntcsv
      * @returns vector of column data.
      */
     template<typename T>
-    std::vector<T> GetColumn(const std::string& pColumnName, ConvFunc<T> pToVal) const
+    std::vector<T> GetColumn(const std::string& pColumnName, conversion_func<T> pToVal) const
     {
       const ssize_t columnIdx = GetColumnIdx(pColumnName);
       if (columnIdx < 0)
@@ -678,11 +674,11 @@ namespace rntcsv
         }
       }
 
-      Converter<T> converter(mConverterParams);
+      converter<T> converter(mConverterParams);
       for (auto itRow = pColumn.begin(); itRow != pColumn.end(); ++itRow)
       {
         std::string str;
-        converter.ToStr(*itRow, str);
+          converter.to_string(*itRow, str);
         mData.at(std::distance(pColumn.begin(), itRow) + (mLabelParams.mColumnNameIdx + 1)).at(columnIdx) = str;
       }
     }
@@ -751,11 +747,11 @@ namespace rntcsv
       else
       {
         column.resize(pColumn.size() + (mLabelParams.mColumnNameIdx + 1));
-        Converter<T> converter(mConverterParams);
+        converter<T> converter(mConverterParams);
         for (auto itRow = pColumn.begin(); itRow != pColumn.end(); ++itRow)
         {
           std::string str;
-          converter.ToStr(*itRow, str);
+            converter.to_string(*itRow, str);
           const size_t rowIdx = std::distance(pColumn.begin(), itRow) + (mLabelParams.mColumnNameIdx + 1);
           column.at(rowIdx) = str;
         }
@@ -820,13 +816,13 @@ namespace rntcsv
     {
       const ssize_t rowIdx = pRowIdx + (mLabelParams.mColumnNameIdx + 1);
       std::vector<T> row;
-      Converter<T> converter(mConverterParams);
+      converter<T> converter(mConverterParams);
       for (auto itCol = mData.at(rowIdx).begin(); itCol != mData.at(rowIdx).end(); ++itCol)
       {
         if (std::distance(mData.at(rowIdx).begin(), itCol) > mLabelParams.mRowNameIdx)
         {
           T val;
-          converter.ToVal(*itCol, val);
+            converter.to_value(*itCol, val);
           row.push_back(val);
         }
       }
@@ -840,11 +836,11 @@ namespace rntcsv
      * @returns vector of row data.
      */
     template<typename T>
-    std::vector<T> GetRow(const size_t pRowIdx, ConvFunc<T> pToVal) const
+    std::vector<T> GetRow(const size_t pRowIdx, conversion_func<T> pToVal) const
     {
       const ssize_t rowIdx = pRowIdx + (mLabelParams.mColumnNameIdx + 1);
       std::vector<T> row;
-      Converter<T> converter(mConverterParams);
+      converter<T> converter(mConverterParams);
       for (auto itCol = mData.at(rowIdx).begin(); itCol != mData.at(rowIdx).end(); ++itCol)
       {
         if (std::distance(mData.at(rowIdx).begin(), itCol) > mLabelParams.mRowNameIdx)
@@ -880,7 +876,7 @@ namespace rntcsv
      * @returns vector of row data.
      */
     template<typename T>
-    std::vector<T> GetRow(const std::string& pRowName, ConvFunc<T> pToVal) const
+    std::vector<T> GetRow(const std::string& pRowName, conversion_func<T> pToVal) const
     {
       ssize_t rowIdx = GetRowIdx(pRowName);
       if (rowIdx < 0)
@@ -915,11 +911,11 @@ namespace rntcsv
         }
       }
 
-      Converter<T> converter(mConverterParams);
+      converter<T> converter(mConverterParams);
       for (auto itCol = pRow.begin(); itCol != pRow.end(); ++itCol)
       {
         std::string str;
-        converter.ToStr(*itCol, str);
+          converter.to_string(*itCol, str);
         mData.at(rowIdx).at(std::distance(pRow.begin(), itCol) + (mLabelParams.mRowNameIdx + 1)) = str;
       }
     }
@@ -985,11 +981,11 @@ namespace rntcsv
       else
       {
         row.resize(pRow.size() + (mLabelParams.mRowNameIdx + 1));
-        Converter<T> converter(mConverterParams);
+        converter<T> converter(mConverterParams);
         for (auto itCol = pRow.begin(); itCol != pRow.end(); ++itCol)
         {
           std::string str;
-          converter.ToStr(*itCol, str);
+            converter.to_string(*itCol, str);
           row.at(std::distance(pRow.begin(), itCol) + (mLabelParams.mRowNameIdx + 1)) = str;
         }
       }
@@ -1032,8 +1028,8 @@ namespace rntcsv
       const ssize_t rowIdx = pRowIdx + (mLabelParams.mColumnNameIdx + 1);
 
       T val;
-      Converter<T> converter(mConverterParams);
-      converter.ToVal(mData.at(rowIdx).at(columnIdx), val);
+      converter<T> converter(mConverterParams);
+        converter.to_value(mData.at(rowIdx).at(columnIdx), val);
       return val;
     }
 
@@ -1045,7 +1041,7 @@ namespace rntcsv
      * @returns cell data.
      */
     template<typename T>
-    T GetCell(const size_t pColumnIdx, const size_t pRowIdx, ConvFunc<T> pToVal) const
+    T GetCell(const size_t pColumnIdx, const size_t pRowIdx, conversion_func<T> pToVal) const
     {
       const ssize_t columnIdx = pColumnIdx + (mLabelParams.mRowNameIdx + 1);
       const ssize_t rowIdx = pRowIdx + (mLabelParams.mColumnNameIdx + 1);
@@ -1087,7 +1083,7 @@ namespace rntcsv
      * @returns cell data.
      */
     template<typename T>
-    T GetCell(const std::string& pColumnName, const std::string& pRowName, ConvFunc<T> pToVal) const
+    T GetCell(const std::string& pColumnName, const std::string& pRowName, conversion_func<T> pToVal) const
     {
       const ssize_t columnIdx = GetColumnIdx(pColumnName);
       if (columnIdx < 0)
@@ -1130,7 +1126,7 @@ namespace rntcsv
      * @returns cell data.
      */
     template<typename T>
-    T GetCell(const std::string& pColumnName, const size_t pRowIdx, ConvFunc<T> pToVal) const
+    T GetCell(const std::string& pColumnName, const size_t pRowIdx, conversion_func<T> pToVal) const
     {
       const ssize_t columnIdx = GetColumnIdx(pColumnName);
       if (columnIdx < 0)
@@ -1167,7 +1163,7 @@ namespace rntcsv
      * @returns cell data.
      */
     template<typename T>
-    T GetCell(const size_t pColumnIdx, const std::string& pRowName, ConvFunc<T> pToVal) const
+    T GetCell(const size_t pColumnIdx, const std::string& pRowName, conversion_func<T> pToVal) const
     {
       const ssize_t rowIdx = GetRowIdx(pRowName);
       if (rowIdx < 0)
@@ -1206,8 +1202,8 @@ namespace rntcsv
       }
 
       std::string str;
-      Converter<T> converter(mConverterParams);
-      converter.ToStr(pCell, str);
+      converter<T> converter(mConverterParams);
+        converter.to_string(pCell, str);
       mData.at(rowIdx).at(columnIdx) = str;
     }
 
@@ -1371,12 +1367,11 @@ namespace rntcsv
 
     void ReadCsv(std::istream& pStream)
     {
-      Clear();
+        clear();
       pStream.seekg(0, std::ios::end);
       std::streamsize length = pStream.tellg();
       pStream.seekg(0, std::ios::beg);
 
-#ifdef HAS_CODECVT
       std::vector<char> bom2b(2, '\0');
       if (length >= 2)
       {
@@ -1414,7 +1409,6 @@ namespace rntcsv
         ParseCsv(ss, utf8.size());
       }
       else
-#endif
       {
         // check for UTF-8 Byte order mark and skip it when found
         if (length >= 3)
@@ -1682,7 +1676,6 @@ namespace rntcsv
       }
     }
 
-#ifdef HAS_CODECVT
 #if defined(_MSC_VER)
 #pragma warning (disable: 4996)
 #endif
@@ -1698,7 +1691,6 @@ namespace rntcsv
 #if defined(_MSC_VER)
 #pragma warning (default: 4996)
 #endif
-#endif
 
     static void ReplaceString(std::string& pStr, const std::string& pSearch, const std::string& pReplace)
     {
@@ -1713,17 +1705,15 @@ namespace rntcsv
 
   private:
     std::string mPath;
-    LabelParams mLabelParams;
-    SeparatorParams mSeparatorParams;
+    label_parameters mLabelParams;
+    separator_parameters mSeparatorParams;
     converter_parameters mConverterParams;
-    LineReaderParams mLineReaderParams;
+    line_reader_parameters mLineReaderParams;
     std::vector<std::vector<std::string>> mData;
     std::map<std::string, size_t> mColumnNames;
     std::map<std::string, size_t> mRowNames;
-#ifdef HAS_CODECVT
     bool mIsUtf16 = false;
     bool mIsLE = false;
-#endif
   };
 }
 

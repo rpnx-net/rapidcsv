@@ -24,7 +24,7 @@ int main()
 
   try
   {
-    rntcsv::Document doc(path, rntcsv::LabelParams(-1, -1));
+    rntcsv::document doc(path, rntcsv::label_parameters(-1, -1));
 
     unittest::ExpectEqual(int, doc.GetCell<int>(1, 0), 32767);
     unittest::ExpectEqual(long, doc.GetCell<long>(1, 1), 2147483647);
